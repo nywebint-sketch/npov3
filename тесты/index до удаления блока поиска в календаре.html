@@ -84,10 +84,6 @@
     .brand-name{
       color:var(--fg);
       white-space:nowrap;
-      font-size:clamp(30px, 2.1vw, 40px);
-      line-height:1;
-      letter-spacing:.02em;
-      font-weight:600;
     }
     .brand-mark{
       width:42px; height:42px; border-radius:13px;
@@ -179,7 +175,6 @@
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.06);
       color:var(--fg);
-      font-family:inherit;
       font-size:13px;
       font-weight:520;
       letter-spacing:.02em;
@@ -191,19 +186,6 @@
     .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18)}
     .btn.primary{background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.24)}
     .btn.ghost{background:transparent}
-    .btn.sc-btn{
-      width:42px;
-      min-width:42px;
-      height:42px;
-      padding:0;
-      border-radius:999px;
-    }
-    .sc-icon{
-      width:18px;
-      height:18px;
-      display:block;
-      fill:currentColor;
-    }
 
     main{padding-top:78px}
     section{padding:56px 0; border-bottom:1px solid rgba(255,255,255,.06)}
@@ -244,39 +226,6 @@
     }
     .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .sp{justify-content:space-between}
-    .event-card-title{
-      max-width:68%;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
-    .event-card-date{
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .event-tags{
-      margin-top:10px;
-      display:flex;
-      gap:8px;
-      flex-wrap:nowrap;
-      min-height:30px;
-    }
-    .event-tags .tag{
-      min-width:96px;
-      justify-content:center;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .event-card-body{
-      display:flex;
-      flex-direction:column;
-      min-height:192px;
-    }
-    .event-card-body .event-open-btn{
-      margin-top:auto;
-      align-self:flex-start;
-    }
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:7px 10px;
@@ -297,9 +246,6 @@
       font-size:13px;
       color:var(--muted);
       margin-bottom:10px;
-    }
-    #artistsGrid{
-      grid-template-columns: repeat(5, minmax(0,1fr));
     }
 
     /* Hero */
@@ -455,9 +401,6 @@
     @media (max-width: 1200px){
       .container{padding:0 16px}
       .g4{grid-template-columns:repeat(3, minmax(0,1fr))}
-      #artistsGrid{
-        grid-template-columns: repeat(4, minmax(0,1fr));
-      }
     }
 
     @media (max-width: 980px){
@@ -466,7 +409,6 @@
       .g4{grid-template-columns:repeat(2, minmax(0,1fr))}
       .g3{grid-template-columns:repeat(2, minmax(0,1fr))}
       .g2{grid-template-columns:1fr}
-      .calendar-picked-panel{display:none}
       section{padding:44px 0}
       .day{min-height:80px}
     }
@@ -488,8 +430,10 @@
         transform:translateY(-50%);
       }
       .brand-name{
+        font-size:clamp(31px, 8.1vw, 47px);
+        line-height:1;
         text-align:center;
-        transform:translateX(-24px);
+        transform:translateX(-6px);
       }
       .right{
         position:absolute;
@@ -600,29 +544,15 @@
         font-size:12px;
       }
       #eventsGrid,
+      #artistsGrid,
       #releasesGrid,
       #merchGrid{
         grid-template-columns:repeat(2, minmax(0,1fr)) !important;
         gap:8px;
       }
-      #artistsGrid{
-        grid-template-columns:repeat(3, minmax(0,1fr)) !important;
-        justify-content:stretch;
-        gap:10px;
-      }
-      #artistsGrid .card{
-        width:100%;
-        max-width:none;
-      }
       #podcastsGrid,
       #streamsList{
         gap:8px;
-      }
-      #eventsGrid .event-card-body{
-        min-height:0;
-      }
-      #eventsGrid .event-card-body .event-open-btn{
-        margin-top:10px;
       }
     }
 
@@ -632,7 +562,7 @@
       .g3{grid-template-columns:1fr}
       .heroArt{min-height:360px}
       .hero-fullscreen .hero .container{padding:0}
-      .right .afisha-btn{display:none}
+      .right .btn:first-child{display:none}
       .calHead{font-size:11px}
       .calGrid{gap:6px}
       .day{min-height:52px; padding:5px}
@@ -641,17 +571,10 @@
 
       /* Keep compact grids on very small screens */
       #eventsGrid,
+      #artistsGrid,
       #releasesGrid,
       #merchGrid{
         grid-template-columns:repeat(2, minmax(0,1fr)) !important;
-      }
-      #artistsGrid{
-        grid-template-columns:repeat(3, minmax(0,1fr)) !important;
-        justify-content:stretch;
-        gap:8px;
-      }
-      #artistsGrid .card{
-        max-width:none;
       }
       .media{
         aspect-ratio:1/1;
@@ -663,6 +586,7 @@
 
     @media (max-width: 380px){
       .brand{gap:9px}
+      .brand-name{font-size:31px}
       .brand-mark{width:36px; height:36px; font-size:19px}
       .btn{padding:8px 11px; font-size:13px}
       .tag{padding:5px 8px}
@@ -698,11 +622,7 @@
       </nav>
 
       <div class="right">
-        <a class="btn sc-btn" href="https://soundcloud.com/npo_radio?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud">
-          <svg class="sc-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M3.56 11.97a.8.8 0 0 0-.8.8v4.46a.8.8 0 1 0 1.6 0v-4.46a.8.8 0 0 0-.8-.8Zm2.52-1.37a.8.8 0 0 0-.8.8v5.83a.8.8 0 0 0 1.6 0V11.4a.8.8 0 0 0-.8-.8Zm2.52-.82a.8.8 0 0 0-.8.8v6.65a.8.8 0 1 0 1.6 0v-6.65a.8.8 0 0 0-.8-.8Zm2.52.44a.8.8 0 0 0-.8.8v6.21a.8.8 0 1 0 1.6 0v-6.21a.8.8 0 0 0-.8-.8Zm2.52 1.25a.8.8 0 0 0-.8.8v4.96a.8.8 0 0 0 1.6 0v-4.96a.8.8 0 0 0-.8-.8Zm1.91 6.56h4.11a2.94 2.94 0 1 0-.34-5.86 4.88 4.88 0 0 0-9.53-.76.8.8 0 0 0 1.49.58 3.28 3.28 0 0 1 6.36.84v.18a.8.8 0 0 0 .96.78c.18-.03.35-.05.52-.05a1.34 1.34 0 1 1 0 2.68h-4.11a.8.8 0 1 0 0 1.6Z"/>
-          </svg>
-        </a>
+        <a class="btn" href="#events">Афиша</a>
         <a class="btn primary" href="#streams">Live</a>
       </div>
     </div>
@@ -812,7 +732,7 @@
         </div>
       </div>
 
-      <div class="grid">
+      <div class="grid g2">
         <div class="card pad">
           <div class="calHead" id="calHead"><div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div></div>
           <div class="calGrid" id="calGrid"><div class="day disabled"></div><div class="day disabled"></div><div class="day disabled"></div><div class="day disabled"></div><div class="day disabled"></div><div class="day disabled"></div><div class="day" data-key="2026-02-01">
@@ -986,7 +906,7 @@
       </div></div>
         </div>
 
-        <div class="card pad calendar-picked-panel">
+        <div class="card pad">
           <div class="row sp">
             <div>
               <b id="pickedDayLabel">Выбери день</b>
@@ -1108,11 +1028,17 @@
     <div class="container">
       <div class="head">
         <div>
-          <h2>Релизы</h2>
+          <h2>Релизы &amp; подкасты</h2>
+          <div class="sub">Релизы и подкасты</div>
         </div>
       </div>
 
       <div class="card">
+        <div class="pad">
+          <b>Релизы</b>
+          <div class="muted" style="margin-top:6px;">Сетка 4 в ряд на desktop.</div>
+        </div>
+        <div class="divider" style="margin:0;"></div>
         <div class="pad">
           <div class="grid g4" id="releasesGrid"><div class="card">
         <div class="media square"><img src="smile.png" alt=""></div>
@@ -1162,6 +1088,46 @@
         </div>
       </div>
 
+      <div style="height:14px"></div>
+
+      <div class="card">
+        <div class="pad">
+          <b>Подкасты</b>
+          <div class="muted" style="margin-top:6px;">Плеер-заглушка. Потом сюда вставится SoundCloud.</div>
+        </div>
+        <div class="divider" style="margin:0;"></div>
+        <div class="pad">
+          <div class="grid g2" id="podcastsGrid"><div class="card">
+        <div class="pad">
+          <div class="row sp">
+            <b>NPO Podcast 02: KIRA</b>
+            <span class="tag">2026-03-05</span>
+          </div>
+          <div class="muted" style="margin-top:6px;">Сет + треклист.</div>
+        </div>
+        <div class="divider" style="margin:0;"></div>
+        <div class="pad">
+          <div class="media wide"><img src="smile.png" alt=""></div>
+          <div style="height:12px"></div>
+          <button class="btn" data-open="podcast" data-id="p2" type="button">Открыть страницу</button>
+        </div>
+      </div><div class="card">
+        <div class="pad">
+          <div class="row sp">
+            <b>NPO Podcast 01: GUEST A</b>
+            <span class="tag">2026-02-18</span>
+          </div>
+          <div class="muted" style="margin-top:6px;">Разговор + сет.</div>
+        </div>
+        <div class="divider" style="margin:0;"></div>
+        <div class="pad">
+          <div class="media wide"><img src="smile.png" alt=""></div>
+          <div style="height:12px"></div>
+          <button class="btn" data-open="podcast" data-id="p1" type="button">Открыть страницу</button>
+        </div>
+      </div></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1312,6 +1278,18 @@
           </div>
         </div>
 
+        <div class="card">
+          <div class="pad">
+            <div class="row sp">
+              <b>Карта</b>
+              <span class="tag">placeholder</span>
+            </div>
+          </div>
+          <div class="divider" style="margin:0;"></div>
+          <div class="pad">
+            <div class="media wide"><img src="smile.png" alt=""></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1413,22 +1391,21 @@
     }
 
     list.forEach((e)=>{
-      const primaryTag = (e.tags && e.tags[0]) ? e.tags[0] : e.status;
-      const secondaryTag = (e.tags && e.tags[1]) ? e.tags[1] : e.status;
       const el = document.createElement("div");
       el.className = "card";
       el.innerHTML = `
         <div class="media"><img src="${e.poster || "smile.png"}" alt="${e.title}" /></div>
-        <div class="pad event-card-body">
+        <div class="pad">
           <div class="row sp">
-            <b class="event-card-title">${e.title}</b>
+            <b>${e.title}</b>
             <span class="tag">${e.status}</span>
           </div>
-          <div class="muted event-card-date" style="margin-top:6px;">${fmtDT(e.date)} · ${e.place}</div>
-          <div class="event-tags">
-            <span class="tag">${primaryTag}</span><span class="tag">${secondaryTag}</span>
+          <div class="muted" style="margin-top:6px;">${fmtDT(e.date)} · ${e.place}</div>
+          <div class="row" style="margin-top:10px;">
+            ${e.tags.map(t=>`<span class="tag">${t}</span>`).join("")}
           </div>
-          <button class="btn event-open-btn" data-open="event" data-id="${e.id}" type="button">Подробнее</button>
+          <div style="height:12px"></div>
+          <button class="btn" data-open="event" data-id="${e.id}" type="button">Подробнее</button>
         </div>
       `;
       wrap.appendChild(el);
@@ -1463,14 +1440,12 @@
       .sort((a,b)=>new Date(a.date)-new Date(b.date));
   }
 
-  function renderDayEventsList(wrap, list, options = {}){
-    const { withActions = true, withAbout = false } = options;
+  function renderDayEventsList(wrap, list){
     wrap.innerHTML = "";
     list.forEach((e)=>{
       const c = document.createElement("div");
       c.className = "card pad";
       c.innerHTML = `
-        ${withAbout ? `<div class="media"><img src="${e.poster || "smile.png"}" alt="${e.title}" /></div>` : ``}
         <div class="row sp">
           <b>${e.title}</b>
           <span class="tag">${e.status}</span>
@@ -1479,8 +1454,8 @@
         <div class="row" style="margin-top:10px;">
           ${e.tags.map(t=>`<span class="tag">${t}</span>`).join("")}
         </div>
-        ${withAbout ? `<div class="muted" style="margin-top:10px;">${e.about || ""}</div>` : ``}
-        ${withActions ? `<div style="height:12px"></div><button class="btn" data-open="event" data-id="${e.id}" type="button">Подробнее</button>` : ``}
+        <div style="height:12px"></div>
+        <button class="btn" data-open="event" data-id="${e.id}" type="button">Подробнее</button>
       `;
       wrap.appendChild(c);
     });
@@ -1548,7 +1523,7 @@
       return;
     }
     $("#pickedDayHint").textContent = `${list.length} шт.`;
-    renderDayEventsList(wrap, list, { withActions:false, withAbout:true });
+    renderDayEventsList(wrap, list);
     if (mobileCalendarBp.matches && list[0]) {
       openEventModal(list[0]);
     }
@@ -1628,6 +1603,31 @@
           <div class="muted" style="margin-top:6px;">${r.date}</div>
           <div style="height:12px"></div>
           <button class="btn" data-open="release" data-id="${r.id}" type="button">Открыть</button>
+        </div>
+      `;
+      wrap.appendChild(el);
+    });
+  }
+
+  function renderPodcasts(){
+    const wrap = $("#podcastsGrid");
+    wrap.innerHTML = "";
+    [...data.podcasts].sort((a,b)=>b.date.localeCompare(a.date)).forEach((p)=>{
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `
+        <div class="pad">
+          <div class="row sp">
+            <b>${p.title}</b>
+            <span class="tag">${p.date}</span>
+          </div>
+          <div class="muted" style="margin-top:6px;">${p.note}</div>
+        </div>
+        <div class="divider" style="margin:0;"></div>
+        <div class="pad">
+          <div class="media wide"><img src="smile.png" alt="" /></div>
+          <div style="height:12px"></div>
+          <button class="btn" data-open="podcast" data-id="${p.id}" type="button">Открыть страницу</button>
         </div>
       `;
       wrap.appendChild(el);
@@ -1982,6 +1982,7 @@
   renderCal();
   renderArtists();
   renderReleases();
+  renderPodcasts();
   renderStreams();
   renderMerch();
 </script>

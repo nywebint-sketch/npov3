@@ -6,13 +6,21 @@
   <meta name="description" content="НПО Мелодия — клуб / лейбл / трансляции. Афиша, артисты, релизы, подкасты, live, мерч, контакты.">
 
   <style>
+    @font-face{
+      font-family:"ISOCP EUR Italic";
+      src:url("ISOCPEUR Italic.ttf") format("truetype");
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+
     :root{
       --bg:#000;
       --fg:#fff;
       --muted:rgba(255,255,255,.72);
       --stroke:rgba(255,255,255,.14);
       --stroke2:rgba(255,255,255,.10);
-      --card:rgba(255,255,255,.04);
+      --card:rgba(8,8,8,.42);
       --radius:18px;
       --max:1180px;
     }
@@ -20,36 +28,137 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+      font-family: "ISOCP EUR Italic", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+      font-size:clamp(15px, 0.2vw + 14px, 17px);
+      font-weight:400;
+      letter-spacing:.01em;
       background:var(--bg);
       color:var(--fg);
-      line-height:1.35;
+      line-height:1.5;
       overflow-x:hidden;
+      position:relative;
+      isolation:isolate;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background-image:url("bg-contour.png");
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:center center;
+      filter:grayscale(1) invert(1) contrast(3.4) brightness(1.5);
+      opacity:.2;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:rgba(0,0,0,.82);
     }
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px}
 
     .topbar{
       position:fixed; inset:0 0 auto 0; z-index:50;
-      height:68px;
-      backdrop-filter: blur(10px);
-      background: rgba(0,0,0,.65);
+      height:78px;
+      backdrop-filter: blur(12px);
+      background: rgba(5,5,5,.45);
       border-bottom:1px solid var(--stroke2);
+      box-shadow:0 12px 40px rgba(0,0,0,.34);
     }
     .topbar .in{
-      height:68px; display:flex; align-items:center; justify-content:space-between; gap:14px;
+      height:78px; display:flex; align-items:center; justify-content:space-between; gap:14px;
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:700;
+      letter-spacing:.02em;
+      font-size:clamp(24px, 1.4vw, 30px);
+      line-height:1;
+    }
+    .brand-name{
+      color:var(--fg);
+      white-space:nowrap;
+    }
     .brand-mark{
-      width:34px; height:34px; border-radius:12px;
+      width:42px; height:42px; border-radius:13px;
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.02);
       display:flex; align-items:center; justify-content:center;
+      padding:7px;
+      overflow:hidden;
+    }
+    .brand-mark img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+    .menu-toggle{
+      color:var(--fg);
+      cursor:pointer;
+      padding:0;
+    }
+    .mobile-menu-backdrop{
+      position:fixed;
+      inset:78px 0 0 0;
+      background:rgba(0,0,0,.45);
+      backdrop-filter:blur(4px);
+      z-index:79;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .18s ease;
+    }
+    .mobile-menu{
+      position:fixed;
+      top:78px;
+      left:12px;
+      right:12px;
+      z-index:80;
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      background:rgba(5,5,5,.96);
+      padding:10px;
+      transform:translateY(-14px);
+      opacity:0;
+      pointer-events:none;
+      transition:transform .18s ease, opacity .18s ease;
+    }
+    .mobile-menu a{
+      display:block;
+      padding:11px 12px;
+      border-radius:12px;
+      color:var(--muted);
+      font-size:14px;
+      letter-spacing:.02em;
+      border:1px solid transparent;
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a:active{
+      color:var(--fg);
+      background:rgba(255,255,255,.06);
+      border-color:var(--stroke2);
+    }
+    body.menu-open .mobile-menu{
+      transform:translateY(0);
+      opacity:1;
+      pointer-events:auto;
+    }
+    body.menu-open .mobile-menu-backdrop{
+      opacity:1;
+      pointer-events:auto;
     }
     .nav{display:flex; gap:12px; align-items:center; overflow:auto}
     .nav a{
       color:var(--muted);
-      font-size:14px;
+      font-size:13px;
+      font-weight:520;
+      letter-spacing:.02em;
       padding:8px 10px;
       border-radius:12px;
       border:1px solid transparent;
@@ -66,7 +175,9 @@
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.06);
       color:var(--fg);
-      font-size:14px;
+      font-size:13px;
+      font-weight:520;
+      letter-spacing:.02em;
       cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       user-select:none;
@@ -76,13 +187,14 @@
     .btn.primary{background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.24)}
     .btn.ghost{background:transparent}
 
-    main{padding-top:68px}
-    section{padding:56px 0; border-bottom:1px solid var(--stroke2)}
+    main{padding-top:78px}
+    section{padding:56px 0; border-bottom:1px solid rgba(255,255,255,.06)}
     .head{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:18px}
     h1,h2{margin:0}
-    h1{font-size: clamp(34px, 4.4vw, 64px); line-height:1.03; letter-spacing:.4px}
-    h2{font-size:22px; letter-spacing:.2px}
-    .sub{margin-top:10px; color:var(--muted); max-width:760px}
+    h1{font-size: clamp(36px, 4.8vw, 68px); line-height:1.04; letter-spacing:.02em; font-weight:560}
+    h2{font-size:clamp(20px, 2vw, 28px); line-height:1.15; letter-spacing:.015em; font-weight:520}
+    .sub{margin-top:10px; color:var(--muted); max-width:760px; font-size:clamp(15px, .35vw + 14px, 18px); line-height:1.55}
+    b,strong{font-weight:560}
 
     .grid{display:grid; gap:14px}
     .g2{grid-template-columns: repeat(2, minmax(0,1fr))}
@@ -94,6 +206,8 @@
       background: var(--card);
       border-radius: var(--radius);
       overflow:hidden;
+      backdrop-filter: blur(8px);
+      box-shadow:0 12px 36px rgba(0,0,0,.35);
     }
     .pad{padding:16px}
     .divider{height:1px; background:var(--stroke2); margin:14px 0}
@@ -104,7 +218,9 @@
       border-radius:999px;
       border:1px solid var(--stroke2);
       background:rgba(255,255,255,.03);
-      font-size:12px;
+      font-size:11px;
+      font-weight:500;
+      letter-spacing:.02em;
       color:rgba(255,255,255,.82);
       white-space:nowrap;
     }
@@ -117,8 +233,19 @@
       border:1px solid var(--stroke2);
       background:rgba(255,255,255,.03);
       color:var(--muted);
-      font-size:13px;
+      font-size:12px;
+      letter-spacing:.02em;
       white-space:nowrap;
+    }
+    #streamNext{
+      max-width:100%;
+      min-width:0;
+    }
+    .quick-links{margin-top:14px}
+    .quick-links .title{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
     }
 
     /* Hero */
@@ -135,7 +262,7 @@
       border:1px solid var(--stroke2);
       border-radius: var(--radius);
       overflow:hidden;
-      background:#000;
+      background:transparent;
     }
     .heroArt .bg{
       position:absolute; inset:0;
@@ -153,6 +280,12 @@
       width:min(520px, 90%);
       height:auto;
     }
+    .hero-main-image{
+      width:min(640px, 92%);
+      height:auto;
+      display:block;
+      background:transparent;
+    }
     .heroArt .cap{
       position:relative;
       display:flex; justify-content:space-between; align-items:center;
@@ -168,17 +301,37 @@
     .hero-fullscreen .heroGrid{display:block}
     .hero-fullscreen .heroGrid > div:first-child{display:none}
     .hero-fullscreen .heroArt{
-      min-height:calc(100vh - 68px);
+      min-height:calc(100vh - 78px);
       border:0;
       border-radius:0;
     }
     .hero-fullscreen .heroArt .bg,
     .hero-fullscreen .heroArt .cap{display:none}
     .hero-fullscreen .heroArt .smile{padding:0}
-    .hero-fullscreen .heroArt img{
+    .hero-fullscreen .heroArt .hero-main-image{
       width:100%;
       height:100%;
+      max-height:none;
       object-fit:cover;
+      object-position:center center;
+    }
+
+    .intro-start{
+      padding:0;
+      min-height:calc(100vh - 78px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .intro-start-image{
+      width:100%;
+      height:100%;
+      min-height:calc(100vh - 78px);
+      display:block;
+      object-fit:cover;
+      object-position:center center;
+      background:transparent;
     }
 
     /* Media blocks (везде одно изображение) */
@@ -186,7 +339,7 @@
       width:100%;
       aspect-ratio: 4/5;
       border-bottom:1px solid var(--stroke2);
-      background:#000;
+      background:rgba(255,255,255,.02);
       display:flex; align-items:center; justify-content:center;
       padding:12px;
     }
@@ -254,12 +407,51 @@
 
     @media (max-width: 760px){
       .topbar,
-      .topbar .in{height:60px}
-      main{padding-top:60px}
+      .topbar .in{height:68px}
+      main{padding-top:68px}
+      .mobile-menu{top:68px}
+      .mobile-menu-backdrop{inset:68px 0 0 0}
       .right .btn{padding:9px 12px; font-size:13px}
-      h1{font-size:clamp(30px, 9vw, 48px)}
-      h2{font-size:20px}
-      .hero-fullscreen .heroArt{min-height:calc(100vh - 60px)}
+      h1{font-size:clamp(28px, 8.2vw, 44px); line-height:1.06}
+      h2{font-size:clamp(18px, 5.8vw, 22px)}
+      body{font-size:15px; line-height:1.45}
+      .hero-fullscreen .heroArt{min-height:calc(100vh - 68px)}
+      .hero-fullscreen .heroArt .smile{
+        width:100%;
+        height:100%;
+      }
+      .hero-fullscreen .heroArt .hero-main-image{
+        width:100%;
+        height:100%;
+        max-height:none;
+        object-fit:cover;
+        object-position:center 24%;
+      }
+      .intro-start,
+      .intro-start-image{
+        min-height:calc(100vh - 68px);
+      }
+      .intro-start-image{
+        object-position:center 24%;
+      }
+      #streams .head{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      #streams .head > div{
+        width:100%;
+        min-width:0;
+      }
+      #streams .head .row{
+        width:100%;
+      }
+      #streamNext{
+        width:100%;
+        display:flex;
+        white-space:normal;
+        overflow-wrap:anywhere;
+        line-height:1.25;
+      }
     }
 
     @media (max-width: 520px){
@@ -272,19 +464,22 @@
       .calHead{font-size:11px}
       .calGrid{gap:6px}
       .day{min-height:72px; padding:8px}
-      .pill{font-size:12px}
+      .pill{font-size:11px}
+      #streamNext{font-size:11px; padding:6px 9px}
     }
 
     @media (max-width: 380px){
-      .brand{gap:8px}
-      .brand span:last-child{font-size:14px}
+      .brand{gap:9px}
+      .brand-name{font-size:22px}
+      .brand-mark{width:36px; height:36px; font-size:19px}
       .btn{padding:8px 11px; font-size:13px}
       .tag{padding:5px 8px}
+      .mobile-menu a{font-size:13px}
     }
 
     @media (max-height: 700px){
       section{padding:34px 0}
-      .hero-fullscreen .heroArt{min-height:calc(100vh - 60px)}
+      .hero-fullscreen .heroArt{min-height:calc(100vh - 68px)}
     }
   </style>
 </head>
@@ -293,10 +488,12 @@
 <header class="topbar">
   <div class="container">
     <div class="in">
-      <a class="brand" href="#home">
-        <span class="brand-mark" aria-hidden="true">◎</span>
-        <span>НПО Мелодия</span>
-      </a>
+      <div class="brand">
+        <button class="brand-mark menu-toggle" id="mobileMenuToggle" type="button" aria-label="Открыть меню" aria-expanded="false">
+          <img src="smile.png" alt="Логотип НПО Мелодия">
+        </button>
+        <a class="brand-name" href="#home">НПО Мелодия</a>
+      </div>
 
       <nav class="nav" aria-label="Навигация">
         <a href="#events">Ивенты</a>
@@ -315,39 +512,22 @@
     </div>
   </div>
 </header>
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop" hidden></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Мобильная навигация" hidden>
+  <a href="#events">Ивенты</a>
+  <a href="#calendar">Календарь</a>
+  <a href="#artists">Артисты</a>
+  <a href="#releases">Релизы</a>
+  <a href="#streams">Трансляции</a>
+  <a href="#merch">Мерч</a>
+  <a href="#contacts">Контакты</a>
+</nav>
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="container">
-      <div class="heroGrid">
-        <div>
-          <h1 style="margin-top:12px;">НПО Мелодия</h1>
-          <div class="row" style="margin-top:56px;">
-            <a class="btn primary" href="#events">Афиша</a>
-            <a class="btn" href="#calendar">Календарь</a>
-            <a class="btn ghost" href="#artists">Артисты</a>
-            <a class="btn ghost" href="#artists">Мерч</a>
-          </div>
-          <div class="row" style="margin-top:14px;">
-            <span class="pill" id="nextEventPill">Следующий ивент: Warehouse Night · 07.03.2026 23:00</span>
-            <span class="pill">место: Paris / test</span>
-          </div>
-        </div>
-
-        <div class="heroArt">
-          <div class="bg"></div>
-          <div class="smile">
-            <img src="smile.png" alt="Изображение">
-          </div>
-          <div class="cap">
-            <span>SMILE SERIES 01</span>
-            <span>white line / black</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- INTRO -->
+  <section class="intro-start" id="home">
+    <img class="intro-start-image" src="npo_print_source.png" alt="Изображение">
   </section>
 
   <!-- EVENTS -->
@@ -427,7 +607,7 @@
       <div class="head">
         <div>
           <h2>Календарь</h2>
-          <div class="sub">Месячная сетка (клик по дню выводит события справа).</div>
+          <div class="sub">Месячная сетка</div>
         </div>
         <div class="row">
           <button class="btn" id="prevMonth" type="button">←</button>
@@ -635,7 +815,6 @@
         </div>
         <div class="row">
           <input class="input" id="artistSearch" placeholder="Поиск артиста…" style="width:min(320px, 70vw);">
-          <a class="btn primary" href="#booking">Запросить букинг</a>
         </div>
       </div>
 
@@ -699,7 +878,7 @@
         <div class="media square"><img src="smile.png" alt=""></div>
         <div class="pad">
           <div class="row sp">
-            <b>YUDIN</b>
+            <b>YUD</b>
             <span class="tag">off</span>
           </div>
           <div class="muted" style="margin-top:6px;">DJ</div>
@@ -725,37 +904,6 @@
         </div>
       </div></div>
 
-      <div style="height:22px"></div>
-
-      <div class="card pad" id="booking">
-        <div class="row sp">
-          <div>
-            <h2 style="font-size:18px; margin:0;">Букинг</h2>
-            <div class="sub" style="margin-top:8px;">Форма-заглушка. Генерит текст запроса.</div>
-          </div>
-          <button class="btn" id="copyBooking" type="button">Скопировать</button>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="grid g2">
-          <div class="grid" style="gap:10px;">
-            <input class="input" id="bDate" placeholder="Дата (например 14.03.2026)">
-            <input class="input" id="bCity" placeholder="Город">
-            <input class="input" id="bVenue" placeholder="Площадка / клуб">
-            <input class="input" id="bFormat" placeholder="Формат (DJ / live / hybrid)">
-            <input class="input" id="bContacts" placeholder="Контакты (telegram/email)">
-            <button class="btn primary" id="genBooking" type="button">Сгенерировать</button>
-          </div>
-          <div>
-            <textarea id="bookingText" placeholder="Нажми «Сгенерировать»"></textarea>
-            <div class="muted" style="margin-top:10px; font-size:13px;">
-              Это MVP: дальше можно отправлять в TG-бота/почту.
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -765,7 +913,7 @@
       <div class="head">
         <div>
           <h2>Релизы &amp; подкасты</h2>
-          <div class="sub">Тестовые релизы и подкасты. Визуал заменен на твою картинку.</div>
+          <div class="sub">Релизы и подкасты</div>
         </div>
       </div>
 
@@ -1077,15 +1225,16 @@
 
   const data = {
     events: [
-      { id:"e1", title:"Warehouse Night", date:"2026-03-07T23:00:00", place:"НПО Мелодия", tags:["techno","resident"], status:"tickets", about:"Ночь техно. Резиденты + лайв-блок.", lineup:["KIRA","NPO LIVE","YUDIN"] },
-      { id:"e2", title:"Podcast Session (Video)", date:"2026-03-12T20:00:00", place:"Студия НПО", tags:["podcast","talk"], status:"free", about:"Видео-подкаст: разговор + мини-сет.", lineup:["HOST","GUEST A"] },
-      { id:"e3", title:"Open Decks / Community", date:"2026-03-21T19:00:00", place:"НПО Мелодия", tags:["community","house"], status:"registration", about:"Открытые слоты. Комьюнити вечер.", lineup:["OPEN SLOTS"] },
-      { id:"e4", title:"Label Showcase", date:"2026-03-29T22:30:00", place:"НПО Мелодия", tags:["label","industrial"], status:"tickets", about:"Шоукейс лейбла.", lineup:["ZED","KIRA"] },
+      { id:"e1", title:"Maslaynitsa", date:"2026-02-19T22:00:00", place:"НПО Мелодия", tags:["live", "electronic"], status:"archive", poster:"event-maslaynitsa.jpg", about:"Ивент Maslaynitsa.", lineup:["am1d", "di-au", "feel gainsbourg", "egor popov", "nyaono"] },
+      { id:"e2", title:"Cliche", date:"2026-02-20T22:00:00", place:"НПО Мелодия", tags:["club", "b2b"], status:"archive", poster:"event-cliche.jpg", about:"Ночной ивент Cliche.", lineup:["ayokiddy", "fckshizy", "luxxomea", "manyice", "norman b2b void", "whysobored", "yardyard"] },
+      { id:"e3", title:"Pirate Jet", date:"2026-02-27T20:00:00", place:"НПО Мелодия", tags:["live", "concert"], status:"archive", poster:"event-pirate-jet.jpg", about:"Pirate Jet: концерты и live performance.", lineup:["gummies (concert)", "черные бояре x света ефремова (live performance)", "m1lbeee (concert)", "ucuda (concert)", "фантом м-100 (live)", "valentin fufaev", "dj baby steps", "yze (concert)", "bogdamn"] },
+      { id:"e4", title:"Проводы", date:"2026-03-07T21:00:00", place:"НПО Мелодия", tags:["live", "theatre"], status:"tickets", poster:"event-provody.jpg", about:"Ночной ивент с лайвом и театральной постановкой.", lineup:["angrykatrin", "электрическая ночь (live)", "орден мертвых (театральная постановка)", "компас врубель", "8OUSY", "мартин ландерс", "макс луч b2b time crusader", "lol123 b2b michura", "skunk york b2b wei"] },
+      { id:"e5", title:"8 Марта / Concert Day", date:"2026-03-08T17:00:00", place:"НПО Мелодия", tags:["concert", "performance"], status:"tickets", poster:"event-8-marta.jpg", about:"Специальный дневной ивент 8 марта.", lineup:["лиза голицына (concert)", "муся кроткова (concert)", "current call", "mari ka", "marina bibik", "mishinuki (concert)", "nastya tkacheva", "тая x tomashino (лаборатория речи) (live performance)", "waterwitch x soundxo (concert)", "+tba"] },
     ],
     artists: [
       { id:"a1", name:"KIRA", role:"DJ / resident", bookable:true, tags:["techno","peak"], bio:"Резидент. Плотный техно-саунд." },
       { id:"a2", name:"NPO LIVE", role:"Live act", bookable:true, tags:["live","hardware"], bio:"Живой сет с железом." },
-      { id:"a3", name:"YUDIN", role:"DJ", bookable:false, tags:["house","warmup"], bio:"Варм-ап, грув, длинные дуги." },
+      { id:"a3", name:"YUD", role:"DJ", bookable:false, tags:["house","warmup"], bio:"Варм-ап, грув, длинные дуги." },
       { id:"a4", name:"ZED", role:"DJ / guest", bookable:true, tags:["industrial","fast"], bio:"Индастриал/фаст." },
       { id:"a5", name:"GUEST A", role:"Selector", bookable:true, tags:["breaks","leftfield"], bio:"Лефтфилд селекция." },
       { id:"a6", name:"HOST", role:"Podcast host", bookable:true, tags:["talk","curation"], bio:"Ведущий подкаста." },
@@ -1113,7 +1262,7 @@
     ]
   };
 
-  let showUpcoming = true;
+  let showUpcoming = false;
 
   function renderEvents(){
     const wrap = $("#eventsGrid");
@@ -1126,7 +1275,7 @@
       const el = document.createElement("div");
       el.className = "card";
       el.innerHTML = `
-        <div class="media"><img src="smile.png" alt="" /></div>
+        <div class="media"><img src="${e.poster || "smile.png"}" alt="${e.title}" /></div>
         <div class="pad">
           <div class="row sp">
             <b>${e.title}</b>
@@ -1416,7 +1565,7 @@
         body: `
           <div class="grid g2">
             <div class="card">
-              <div class="media"><img src="smile.png" alt="" /></div>
+              <div class="media"><img src="${ev.poster || "smile.png"}" alt="${ev.title}" /></div>
               <div class="pad">
                 <div class="row">${ev.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
                 <div class="divider"></div>
@@ -1459,9 +1608,17 @@
             <div class="card pad">
               <b>Букинг</b>
               <div class="divider"></div>
-              <div class="muted">Перейди к форме и отправь запрос.</div>
-              <div style="height:12px"></div>
-              <a class="btn primary" href="#booking" onclick="document.getElementById('modal').style.display='none'; setTimeout(()=>document.querySelector('#booking').scrollIntoView({behavior:'smooth'}), 60);">К форме</a>
+              <div class="muted" style="margin-bottom:10px;">Заполни форму и отправь заявку.</div>
+              <form class="grid booking-form-modal" data-artist-id="${a.id}" data-artist-name="${a.name}" data-artist-bookable="${a.bookable ? "1" : "0"}" style="gap:10px;">
+                <input class="input" name="date" placeholder="Дата (например 14.03.2026)" required>
+                <input class="input" name="city" placeholder="Город" required>
+                <input class="input" name="venue" placeholder="Площадка / клуб" required>
+                <input class="input" name="format" placeholder="Формат (DJ / live / hybrid)" required>
+                <input class="input" name="contacts" placeholder="Контакты (telegram/email)" required>
+                <textarea name="note" placeholder="Комментарий (опционально)"></textarea>
+                <button class="btn primary" type="submit">Отправить заявку</button>
+                <div class="muted booking-status" style="font-size:13px;">Ожидание отправки</div>
+              </form>
             </div>
           </div>
         `
@@ -1573,27 +1730,55 @@
     }
   });
 
-  // Booking generator
-  $("#genBooking").addEventListener("click", ()=>{
-    const txt =
-`Привет! Хочу запросить букинг.
+  // Booking form -> admin endpoint
+  const BOOKING_ADMIN_ENDPOINT = "";
+  document.addEventListener("submit", async (e)=>{
+    const bookingForm = e.target.closest(".booking-form-modal");
+    if(!bookingForm) return;
+    e.preventDefault();
+    const bookingStatus = $(".booking-status", bookingForm);
+    const bookingSubmit = bookingForm.querySelector('button[type="submit"]');
 
-Дата: ${$("#bDate").value || "—"}
-Город: ${$("#bCity").value || "—"}
-Площадка: ${$("#bVenue").value || "—"}
-Формат: ${$("#bFormat").value || "—"}
+    if(!BOOKING_ADMIN_ENDPOINT){
+      if (bookingStatus) bookingStatus.textContent = "Добавь URL админки в BOOKING_ADMIN_ENDPOINT";
+      return;
+    }
+    if(bookingForm.dataset.artistBookable !== "1"){
+      if (bookingStatus) bookingStatus.textContent = "Этот артист сейчас не на букинге";
+      return;
+    }
 
-Контакт: ${$("#bContacts").value || "—"}
+    const payload = {
+      artistId: bookingForm.dataset.artistId || "",
+      artistName: bookingForm.dataset.artistName || "",
+      date: bookingForm.elements.date.value.trim(),
+      city: bookingForm.elements.city.value.trim(),
+      venue: bookingForm.elements.venue.value.trim(),
+      format: bookingForm.elements.format.value.trim(),
+      contacts: bookingForm.elements.contacts.value.trim(),
+      note: bookingForm.elements.note.value.trim(),
+      source: "npo-melodiya-site",
+      createdAt: new Date().toISOString()
+    };
 
-Пришлите, пожалуйста, условия (гонорар, техрайдер, тайминг, сетап).`;
-    $("#bookingText").value = txt;
-  });
+    if (bookingStatus) bookingStatus.textContent = "Отправка...";
+    if (bookingSubmit) bookingSubmit.disabled = true;
 
-  $("#copyBooking").addEventListener("click", async ()=>{
-    const val = $("#bookingText").value.trim();
-    if(!val){ alert("Сначала сгенерируй текст"); return; }
-    await navigator.clipboard.writeText(val);
-    alert("Скопировано");
+    try{
+      const res = await fetch(BOOKING_ADMIN_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (bookingStatus) bookingStatus.textContent = "Заявка отправлена в админку";
+      bookingForm.reset();
+    }catch(err){
+      if (bookingStatus) bookingStatus.textContent = "Ошибка отправки. Проверь URL админки.";
+      console.error(err);
+    }finally{
+      if (bookingSubmit) bookingSubmit.disabled = false;
+    }
   });
 
   // Nav active on scroll
@@ -1607,6 +1792,41 @@
     });
   }, { rootMargin:"-50% 0px -45% 0px", threshold:0.01 });
   sections.forEach(s=>io.observe(s));
+
+  // Mobile menu
+  const mobileMenuToggle = $("#mobileMenuToggle");
+  const mobileMenu = $("#mobileMenu");
+  const mobileMenuBackdrop = $("#mobileMenuBackdrop");
+  const mobileLinks = $$("#mobileMenu a");
+  const mobileBp = window.matchMedia("(max-width: 980px)");
+
+  const closeMobileMenu = ()=>{
+    document.body.classList.remove("menu-open");
+    mobileMenuToggle?.setAttribute("aria-expanded", "false");
+  };
+
+  const openMobileMenu = ()=>{
+    mobileMenu.hidden = false;
+    mobileMenuBackdrop.hidden = false;
+    document.body.classList.add("menu-open");
+    mobileMenuToggle?.setAttribute("aria-expanded", "true");
+  };
+
+  mobileMenuToggle?.addEventListener("click", (e)=>{
+    if(!mobileBp.matches) return;
+    e.preventDefault();
+    if(document.body.classList.contains("menu-open")) closeMobileMenu();
+    else openMobileMenu();
+  });
+
+  mobileMenuBackdrop?.addEventListener("click", closeMobileMenu);
+  mobileLinks.forEach(link=>link.addEventListener("click", closeMobileMenu));
+  window.addEventListener("resize", ()=>{
+    if(!mobileBp.matches) closeMobileMenu();
+  });
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape") closeMobileMenu();
+  });
 
   // Init
   $("#year").textContent = new Date().getFullYear();
