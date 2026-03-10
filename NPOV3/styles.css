@@ -765,17 +765,18 @@
     }
 
     .intro-start-image {
-      width: 150vmax;
-      height: 150vmax;
+      width: max(1500px, 130vw);
+      height: max(1500px, 130vw);
       max-width: none;
       max-height: none;
+      flex-shrink: 0;
       display: block;
-      object-fit: cover;
-      object-position: center center;
+      object-fit: contain;
+      object-position: center;
       background: transparent;
       filter: grayscale(1) contrast(0.95) brightness(0.9);
       opacity: .58;
-      animation: slow-spin 30s linear infinite;
+      animation: slow-spin 45s linear infinite;
     }
 
     @keyframes slow-spin {
@@ -1876,7 +1877,6 @@
         filter: invert(0);
       }
     }
-
 
     @keyframes skeleton-loading {
       0% {
