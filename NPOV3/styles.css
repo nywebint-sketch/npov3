@@ -153,35 +153,38 @@
     .brand-mark {
       width: 48px;
       height: 48px;
-      border-radius: 13px;
-      border: none;
-      background: transparent;
+      border: 1px solid var(--border);
+      background: var(--button-bg);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 7px;
+      padding: 0;
       overflow: hidden;
-      transition: background .25s ease, color .25s ease;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
 
     .brand-mark:hover,
     .brand-mark:active {
+      transform: translateY(-1px);
       background: var(--surface-hover);
       color: var(--text-hover);
+      border-color: var(--border-hover);
     }
 
     .brand-mark img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
-      filter: invert(0);
+      filter: invert(1);
       transition: filter .25s ease;
     }
 
     .brand-mark:hover img,
     .brand-mark:active img {
-      filter: invert(1);
+      filter: invert(0);
     }
 
     .menu-toggle {
@@ -1331,10 +1334,6 @@
         width: 38px;
         height: 38px;
         padding: 0;
-        border: 1px solid var(--stroke);
-        border-radius: 13px;
-        background: transparent;
-        overflow: hidden;
       }
 
       .brand .brand-mark img {
@@ -1862,12 +1861,12 @@
       }
 
       .brand-mark img {
-        filter: invert(1);
+        filter: invert(0);
       }
 
       .brand-mark:hover img,
       .brand-mark:active img {
-        filter: invert(0);
+        filter: invert(1);
       }
     }
 
