@@ -191,6 +191,198 @@ export const updateUserRole = async (id, newRole) => {
   return data;
 };
 
+// --- API Релизов (Releases) ---
+
+export const getReleases = async () => {
+  const { data, error } = await supabaseClt
+    .from('releases')
+    .select('*')
+    .order('date', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching releases:', error);
+    return [];
+  }
+  return data;
+};
+
+export const addRelease = async (releaseData) => {
+  const { data, error } = await supabaseClt
+    .from('releases')
+    .insert([releaseData])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const updateRelease = async (id, releaseData) => {
+  const { data, error } = await supabaseClt
+    .from('releases')
+    .update(releaseData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteRelease = async (id) => {
+  const { error } = await supabaseClt
+    .from('releases')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+  return true;
+};
+
+// --- API Подкастов (Podcasts) ---
+
+export const getPodcasts = async () => {
+  const { data, error } = await supabaseClt
+    .from('podcasts')
+    .select('*')
+    .order('date', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching podcasts:', error);
+    return [];
+  }
+  return data;
+};
+
+export const addPodcast = async (podcastData) => {
+  const { data, error } = await supabaseClt
+    .from('podcasts')
+    .insert([podcastData])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const updatePodcast = async (id, podcastData) => {
+  const { data, error } = await supabaseClt
+    .from('podcasts')
+    .update(podcastData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deletePodcast = async (id) => {
+  const { error } = await supabaseClt
+    .from('podcasts')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+  return true;
+};
+
+// --- API Стримов (Streams) ---
+
+export const getStreams = async () => {
+  const { data, error } = await supabaseClt
+    .from('streams')
+    .select('*')
+    .order('date', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching streams:', error);
+    return [];
+  }
+  return data;
+};
+
+export const addStream = async (streamData) => {
+  const { data, error } = await supabaseClt
+    .from('streams')
+    .insert([streamData])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const updateStream = async (id, streamData) => {
+  const { data, error } = await supabaseClt
+    .from('streams')
+    .update(streamData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteStream = async (id) => {
+  const { error } = await supabaseClt
+    .from('streams')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+  return true;
+};
+
+// --- API Мерча (Merch) ---
+
+export const getMerch = async () => {
+  const { data, error } = await supabaseClt
+    .from('merch')
+    .select('*')
+    .order('title', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching merch:', error);
+    return [];
+  }
+  return data;
+};
+
+export const addMerch = async (merchData) => {
+  const { data, error } = await supabaseClt
+    .from('merch')
+    .insert([merchData])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const updateMerch = async (id, merchData) => {
+  const { data, error } = await supabaseClt
+    .from('merch')
+    .update(merchData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteMerch = async (id) => {
+  const { error } = await supabaseClt
+    .from('merch')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+  return true;
+};
+
 // --- STORAGE (ХРАНИЛИЩЕ) ---
 
 export const uploadImage = async (file) => {
