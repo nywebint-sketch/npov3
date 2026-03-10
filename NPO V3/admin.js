@@ -122,21 +122,32 @@ async function loadDashboard() {
 // ---- ПОЛЬЗОВАТЕЛИ ----
 async function loadUsersView() {
   addBtn.style.display = 'none'; // Пользователей администратор не добавляет вручную
-  const users = await db.getUsers();
+  const rawUsers = await db.getUsers();
+  const users = (rawUsers || []).filter(Boolean);
 
-  const rows = users.map(u => `
+  const rows = users.map(u => {
+    const email = u.email || '—';
+    const name = u.name || '—';
+    const role = u.role || 'member';
+    const createdRaw = (u.created_at || u.createdAt || '');
+    const created = typeof createdRaw === 'string' && createdRaw.includes('T')
+      ? createdRaw.split('T')[0]
+      : (createdRaw || '—');
+
+    return `
     <tr>
-      <td>${u.email}</td>
-      <td>${u.name || '—'}</td>
-      <td><span class="tag" style="background: ${u.role === 'admin' ? '#fff' : 'rgba(255,255,255,0.1)'}; color: ${u.role === 'admin' ? '#000' : '#fff'}">${u.role}</span></td>
-      <td>${u.createdAt.split('T')[0]}</td>
+      <td>${email}</td>
+      <td>${name}</td>
+      <td><span class="tag" style="background: ${role === 'admin' ? '#fff' : 'rgba(255,255,255,0.1)'}; color: ${role === 'admin' ? '#000' : '#fff'}">${role}</span></td>
+      <td>${created}</td>
       <td>
         <div class="actions">
-          <button class="btn-sm" onclick="app.makeAdmin('${u.id}')" ${u.role === 'admin' ? 'disabled style="opacity:0.3"' : ''}>Сделать админом</button>
+          <button class="btn-sm" onclick="app.makeAdmin('${u.id}')" ${role === 'admin' ? 'disabled style="opacity:0.3"' : ''}>Сделать админом</button>
         </div>
       </td>
     </tr>
-  `).join('');
+    `;
+  }).join('');
 
   viewContainer.innerHTML = `
     <div class="admin-table-wrap">
