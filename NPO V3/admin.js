@@ -37,27 +37,31 @@ async function checkAuth() {
   }
 }
 
-loginForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = loginForm.email.value;
-  const pass = loginForm.password.value;
-  loginError.style.display = 'none';
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = loginForm.email.value;
+    const pass = loginForm.password.value;
+    loginError.style.display = 'none';
 
-  try {
-    const res = await db.login(email, pass);
-    if (res) {
-      await checkAuth();
+    try {
+      const res = await db.login(email, pass);
+      if (res) {
+        await checkAuth();
+      }
+    } catch (err) {
+      loginError.textContent = 'Неверный логин или пароль';
+      loginError.style.display = 'block';
     }
-  } catch (err) {
-    loginError.textContent = 'Неверный логин или пароль';
-    loginError.style.display = 'block';
-  }
-});
+  });
+}
 
-logoutBtn.addEventListener('click', async () => {
-  await db.logout();
-  checkAuth();
-});
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    await db.logout();
+    checkAuth();
+  });
+}
 
 // ---- НАВИГАЦИЯ И ВЬЮШКИ ----
 
