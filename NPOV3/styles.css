@@ -154,7 +154,7 @@
       width: 48px;
       height: 48px;
       border-radius: 999px;
-      border: none;
+      border: 1px solid var(--border);
       background: transparent;
       display: flex;
       align-items: center;
