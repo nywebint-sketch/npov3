@@ -154,7 +154,7 @@
       width: 48px;
       height: 48px;
       border-radius: 999px;
-      border: 1px solid var(--border);
+      border: none;
       background: var(--button-bg);
       display: flex;
       align-items: center;
@@ -179,13 +179,13 @@
       height: 100%;
       object-fit: contain;
       display: block;
-      filter: invert(0);
+      filter: invert(1);
       transition: filter .25s ease;
     }
 
     .brand-mark:hover img,
     .brand-mark:active img {
-      filter: invert(1);
+      filter: invert(0);
     }
 
     .menu-toggle {
@@ -1818,6 +1818,14 @@
       body::before {
         filter: grayscale(1) invert(1) contrast(3.4) brightness(1.5);
         opacity: .2;
+      }
+      
+      .brand-mark img {
+        filter: invert(0);
+      }
+      .brand-mark:hover img,
+      .brand-mark:active img {
+        filter: invert(1);
       }
 
       .intro-start {
