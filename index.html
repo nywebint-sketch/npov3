@@ -228,9 +228,24 @@
     </footer>
   </main>
 
+  <!-- MODAL -->
+  <div id="modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <div id="mTitle" class="modal-title">—</div>
+          <div id="mSub" class="modal-sub">—</div>
+        </div>
+        <button class="btn ghost" id="mClose" type="button">Закрыть</button>
+      </div>
+      <div class="modal-body pad" id="mBody"></div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script type="module" src="NPO V3/db.js"></script>
   <script src="NPO V3/script.js" defer></script>
 </body>
 </html>
+
 
