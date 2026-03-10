@@ -26,11 +26,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Inject Supabase Anon Key
-        run: sed -i 's/SUPABASE_ANON_KEY_PLACEHOLDER/${{ secrets.SUPABASE_ANON_KEY }}/g' ./NPOV3/db.js
+        run: sed -i 's/SUPABASE_ANON_KEY_PLACEHOLDER/${{ secrets.SUPABASE_ANON_KEY }}/g' ./db.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './NPOV3'
+          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
