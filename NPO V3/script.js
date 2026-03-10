@@ -20,42 +20,13 @@ const fmtDateShort = (iso) => {
 
 const sortAsc = (arr, key) => [...arr].sort((a, b) => new Date(a[key]) - new Date(b[key]));
 
-const data = {
-  events: [
-    { id: "e1", title: "Maslaynitsa", date: "2026-02-19T22:00:00", place: "НПО Мелодия", tags: ["live", "electronic"], status: "archive", poster: "event-maslaynitsa.jpg", about: "Ивент Maslaynitsa.", lineup: ["am1d", "di-au", "feel gainsbourg", "egor popov", "nyaono"] },
-    { id: "e2", title: "Cliche", date: "2026-02-20T22:00:00", place: "НПО Мелодия", tags: ["club", "b2b"], status: "archive", poster: "event-cliche.jpg", about: "Ночной ивент Cliche.", lineup: ["ayokiddy", "fckshizy", "luxxomea", "manyice", "norman b2b void", "whysobored", "yardyard"] },
-    { id: "e3", title: "Pirate Jet", date: "2026-02-28T20:00:00", place: "НПО Мелодия", tags: ["live", "concert"], status: "archive", poster: "event-pirate-jet.jpg", about: "Pirate Jet: концерты и live performance.", lineup: ["gummies (concert)", "черные бояре x света ефремова (live performance)", "m1lbeee (concert)", "ucuda (concert)", "фантом м-100 (live)", "valentin fufaev", "dj baby steps", "yze (concert)", "bogdamn"] },
-    { id: "e4", title: "7+8", date: "2026-03-07T21:00:00", place: "НПО Мелодия", address: "Москва, 3-я улица Ямского Поля, 2 к5", tags: ["weekend", "live", "32h"], status: "tickets", poster: "event-7-marta.png", ticketUrl: "https://moscow.qtickets.events/219423-78", about: "Первый викенд весны — 32 часа. Концерты Макса Беженова и BOORLUCK: GALLEON-25. Abelle, Utah, RHa & Roma Ptashenko, Сaspian Kid, Wei. Утренние: Denis Kostitsyn & Rvbbt & Ballu, Sereja Borisov. Перфоманс: Таи & Tomashino (Лаборатория Речи), Mishinuki Waterwitch & Soundxo, Лиза Голицына, Муся Кроткова. В ночи: Сurrent Сall, Marina Bibik, Mari Ka, Nastya Tkacheva. Билет не является гарантией входа, на мероприятии действует face control.", lineup: ["Макс Беженов", "BOORLUCK: GALLEON-25", "Abelle", "Utah", "RHa & Roma Ptashenko", "Сaspian Kid", "Wei", "Denis Kostitsyn & Rvbbt & Ballu", "Sereja Borisov", "Таи & Tomashino", "Mishinuki Waterwitch & Soundxo", "Лиза Голицына", "Муся Кроткова", "Сurrent Сall", "Marina Bibik", "Mari Ka", "Nastya Tkacheva"] },
-    { id: "e5", title: "7+8 (день 2)", date: "2026-03-09T17:00:00", place: "НПО Мелодия", address: "Москва, 3-я улица Ямского Поля, 2 к5", tags: ["weekend", "8march"], status: "tickets", poster: "event-8-marta.jpg", ticketUrl: "https://moscow.qtickets.events/219423-78", about: "Продолжение 7+8. Восьмое марта — полный вайб. Единый билет на оба дня.", lineup: [] },
-    { id: "e6", title: "exponere", date: "2026-03-13T20:00:00", place: "НПО Мелодия", address: "Москва, 3-я улица Ямского Поля, 2 к5", tags: ["live", "tape"], status: "tickets", poster: "event-exponere.png", ticketUrl: "https://moscow.qtickets.events/220843-exponere", about: "Март 13 w/ Exponere. Презентация кассеты Varia Pars Prima. Лайвы: Walter Shandy, Ivan Yerofeyev (ГОСТ ЗВУК, Resonance), Paita (DJ HeadSick, Yuzhnii Chelovek), Naked Drums. Диджей-сеты: Sablemik b2b OL, Oid b2b Sapurra, Wei b2b Beennooutside. Открытие: DJ Reelswatcher. Прайм: Skunk York. Утренние: Andrey Ramonov и RHa. Билет не является гарантией входа, на мероприятии действует FC.", lineup: ["DJ Reelswatcher", "Naūma (live)", "Ivan Yerofeyev (live)", "Sablemik x OL", "Wei x Beennooutside", "Walter Shandy (live)", "Skunk York", "Oid x Sapurra", "Naked Drums (live)", "Andrey Ramonov", "RHa"] }
-  ],
-  artists: [
-    { id: "a2", name: "AND", role: "Live act", bookable: true, tags: ["live", "hardware"], bio: "Живой сет с железом." },
-    { id: "a3", name: "WEI", role: "DJ / live", bookable: true, tags: ["live", "octatrack"], bio: "WEI", poster: "wei.jpg" },
-    { id: "a4", name: "ZED", role: "DJ / guest", bookable: true, tags: ["industrial", "fast"], bio: "Индастриал/фаст." },
-    { id: "a5", name: "LATY", role: "Selector", bookable: true, tags: ["breaks", "leftfield"], bio: "Лефтфилд селекция." },
-    { id: "a6", name: "RHA", role: "Podcast host", bookable: true, tags: ["talk", "curation"], bio: "Ведущий подкаста." }
-  ],
-  releases: [
-    { id: "r1", title: "NPO VA 001", date: "2026-02-28", format: "digital", tracklist: ["Track 1", "Track 2", "Track 3"] },
-    { id: "r2", title: "KIRA - Night Tools EP", date: "2026-03-15", format: "vinyl", tracklist: ["A1", "A2", "B1", "B2"] },
-    { id: "r3", title: "NPO LIVE - Session Cuts", date: "2026-03-22", format: "digital", tracklist: ["Cut 1", "Cut 2"] }
-  ],
-  podcasts: [
-    { id: "p1", title: "NPO Podcast 01: GUEST A", date: "2026-02-18", note: "Разговор + сет." },
-    { id: "p2", title: "NPO Podcast 02: KIRA", date: "2026-03-05", note: "Сет + треклист." }
-  ],
-  streams: [
-    { id: "s1", title: "Replay: Warehouse Night", date: "2026-02-10" },
-    { id: "s2", title: "Replay: Guest Session", date: "2026-02-03" },
-    { id: "s3", title: "Replay: Community Night", date: "2026-01-27" }
-  ],
-  merch: [
-    { id: "m1", title: "T-shirt NPO", price: "3500 ₽", status: "preorder", desc: "Плотный хлопок, белый принт." },
-    { id: "m2", title: "Cap NPO", price: "1900 ₽", status: "in_stock", desc: "Вышивка." },
-    { id: "m3", title: "Sticker pack", price: "450 ₽", status: "in_stock", desc: "Набор наклеек." },
-    { id: "m4", title: "Totebag", price: "2400 ₽", status: "preorder", desc: "Хлопок, трафарет." }
-  ]
+let data = {
+  events: [],
+  artists: [],
+  releases: [],
+  podcasts: [],
+  streams: [],
+  merch: []
 };
 
 const BOOKING_ADMIN_ENDPOINT = "https://httpbin.org/post";
@@ -159,12 +130,12 @@ function renderClubAccess() {
 
   const isAuthorized = Boolean(clubSession?.email);
 
-  if (authGuest) authGuest.hidden = isAuthorized;
-  if (authMember) authMember.hidden = !isAuthorized;
+  if (authGuest) authGuest.style.display = isAuthorized ? "none" : "grid";
+  if (authMember) authMember.style.display = isAuthorized ? "block" : "none";
   if (memberName) memberName.textContent = clubSession?.name || clubSession?.email || "участник";
 
-  if (exclusiveLocked) exclusiveLocked.hidden = isAuthorized;
-  if (exclusiveContent) exclusiveContent.hidden = !isAuthorized;
+  if (exclusiveLocked) exclusiveLocked.style.display = isAuthorized ? "none" : "block";
+  if (exclusiveContent) exclusiveContent.style.display = isAuthorized ? "block" : "none";
   if (exclusiveBadge) exclusiveBadge.textContent = isAuthorized ? "открыт" : "закрыт";
 
   if (authStatus) {
@@ -180,22 +151,29 @@ function setClubStatus(message) {
 }
 
 async function refreshClubSession() {
-  const token = readClubToken();
-  if (!token) {
-    clubSession = null;
-    renderClubAccess();
-    return;
-  }
-
   try {
-    const me = await clubRequest("/api/auth/me");
-    clubSession = me.user || null;
+    const session = await window.dbLayer.getSession();
+    if (!session) {
+      clubSession = null;
+      renderClubAccess();
+      return;
+    }
 
-    const exclusive = await clubRequest("/api/exclusive");
-    renderExclusiveItems(exclusive.items || []);
+    clubSession = {
+      email: session.user.email,
+      name: session.user.user_metadata?.name || session.user.email
+    };
+
+    // Тут можно в будущем брать эксклюзивный контент из базы
+    const mockExclusive = [
+       {title: 'Early Access: NPO VA 002', description: 'Превью треков + закрытый pre-save.'},
+       {title: 'Private Stream Archive', description: 'Закрытые записи из ночных сетов.'},
+       {title: 'Members Promo Code', description: 'Скидка 15% на мерч и закрытые дропы.'}
+    ];
+    renderExclusiveItems(mockExclusive);
     renderClubAccess();
-  } catch {
-    saveClubToken("");
+  } catch (err) {
+    console.error(err);
     clubSession = null;
     renderClubAccess();
   }
@@ -232,16 +210,18 @@ function initClubAuth() {
     }
 
     try {
-      const result = await clubRequest("/api/auth/register", {
-        method: "POST",
-        body: { name, email, password },
-        auth: false
-      });
-
-      saveClubToken(result.token || "");
-      clubSession = result.user || null;
+      await window.dbLayer.register(email, password, name);
+      // После регистрации Supabase автоматически логинит, берем сессию
+      const session = await window.dbLayer.getSession();
+      clubSession = { email: session.user.email, name: session.user.user_metadata?.name || name };
       form.reset();
-      renderExclusiveItems(result.items || []);
+      
+      const mockExclusive = [
+       {title: 'Early Access: NPO VA 002', description: 'Превью треков + закрытый pre-save.'},
+       {title: 'Private Stream Archive', description: 'Закрытые записи из ночных сетов.'},
+       {title: 'Members Promo Code', description: 'Скидка 15% на мерч и закрытые дропы.'}
+      ];
+      renderExclusiveItems(mockExclusive);
       renderClubAccess();
       setClubStatus("Регистрация успешна. Эксклюзив открыт.");
     } catch (err) {
@@ -261,15 +241,17 @@ function initClubAuth() {
     }
 
     try {
-      const result = await clubRequest("/api/auth/login", {
-        method: "POST",
-        body: { email, password },
-        auth: false
-      });
-      saveClubToken(result.token || "");
-      clubSession = result.user || null;
+      await window.dbLayer.login(email, password);
+      const session = await window.dbLayer.getSession();
+      clubSession = { email: session.user.email, name: session.user.user_metadata?.name || email };
       form.reset();
-      renderExclusiveItems(result.items || []);
+      
+      const mockExclusive = [
+       {title: 'Early Access: NPO VA 002', description: 'Превью треков + закрытый pre-save.'},
+       {title: 'Private Stream Archive', description: 'Закрытые записи из ночных сетов.'},
+       {title: 'Members Promo Code', description: 'Скидка 15% на мерч и закрытые дропы.'}
+      ];
+      renderExclusiveItems(mockExclusive);
       renderClubAccess();
       setClubStatus("Вход выполнен. Эксклюзив открыт.");
     } catch (err) {
@@ -279,11 +261,10 @@ function initClubAuth() {
 
   logoutBtn?.addEventListener("click", async () => {
     try {
-      await clubRequest("/api/auth/logout", { method: "POST" });
+      await window.dbLayer.logout();
     } catch {
-      // ignore network/logout errors on client, local session is still cleared
+      // ignore
     }
-    saveClubToken("");
     clubSession = null;
     renderClubAccess();
     setClubStatus("Ты вышел из аккаунта.");
@@ -530,122 +511,70 @@ function buildEventModalBody(eventItem) {
 }
 
 function buildArtistModalBody(artist) {
-  const grid = el("div", { className: "grid g2" });
+  const wrapper = el("div", { className: "event-modal-wrap" });
 
-  const left = el("div", { className: "card" });
+  const left = el("div", { className: "card event-modal-left" });
   const mediaClass = artist.poster ? "media square cover" : "media square";
   left.appendChild(createMedia(artist.poster || "smile.png", artist.name, mediaClass));
-  const leftPad = el("div", { className: "pad" });
 
-  const tagsRow = el("div", { className: "row" });
-  (artist.tags || []).forEach((tag) => tagsRow.appendChild(createTag(tag)));
-  leftPad.appendChild(tagsRow);
-
-  appendDivider(leftPad);
-  leftPad.appendChild(el("b", { text: "Bio" }));
+  const right = el("div", { className: "card pad event-modal-right" });
+  
   const bio = el("div", { className: "muted", text: artist.bio || "—" });
-  bio.style.marginTop = "8px";
-  leftPad.appendChild(bio);
+  right.appendChild(bio);
 
-  left.appendChild(leftPad);
+  const actions = el("div", { className: "event-modal-actions" });
+  actions.style.gap = "10px";
 
-  const right = el("div", { className: "card pad" });
-  right.appendChild(el("b", { text: "Букинг" }));
-  appendDivider(right);
+  const bandcamp = el("button", { className: "btn event-ticket-btn", text: "Bandcamp" });
+  bandcamp.type = "button";
+  bandcamp.addEventListener("click", () => alert("Bandcamp (поставишь ссылку)"));
+  actions.appendChild(bandcamp);
 
-  const info = el("div", { className: "muted", text: "Заполни форму и отправь заявку." });
-  info.style.marginBottom = "10px";
-  right.appendChild(info);
+  const soundcloud = el("button", { className: "btn event-ticket-btn", text: "SoundCloud" });
+  soundcloud.type = "button";
+  soundcloud.addEventListener("click", () => alert("SoundCloud (поставишь ссылку)"));
+  actions.appendChild(soundcloud);
 
-  const form = el("form", { className: "grid booking-form-modal" });
-  form.dataset.artistId = artist.id;
-  form.dataset.artistName = artist.name;
-  form.dataset.artistBookable = artist.bookable ? "1" : "0";
-  form.dataset.renderedAt = String(Date.now());
-  form.style.gap = "10px";
-
-  const addInput = (name, placeholder, required = true) => {
-    const input = el("input", { className: "input" });
-    input.name = name;
-    input.placeholder = placeholder;
-    input.required = required;
-    return input;
-  };
-
-  form.appendChild(addInput("date", "Дата (например 14.03.2026)"));
-  form.appendChild(addInput("city", "Город"));
-  form.appendChild(addInput("venue", "Площадка / клуб"));
-  form.appendChild(addInput("format", "Формат (DJ / live / hybrid)"));
-  form.appendChild(addInput("contacts", "Контакты (telegram/email)"));
-
-  const honeypot = addInput("website", "Ваш сайт", false);
-  honeypot.tabIndex = -1;
-  honeypot.autocomplete = "off";
-  honeypot.style.position = "absolute";
-  honeypot.style.left = "-9999px";
-  honeypot.setAttribute("aria-hidden", "true");
-  form.appendChild(honeypot);
-
-  const note = document.createElement("textarea");
-  note.name = "note";
-  note.placeholder = "Комментарий (опционально)";
-  form.appendChild(note);
-
-  const submit = el("button", { className: "btn primary", text: "Отправить заявку" });
-  submit.type = "submit";
-  form.appendChild(submit);
-
-  const status = el("div", { className: "muted booking-status", text: "Ожидание отправки" });
-  status.style.fontSize = "13px";
-  form.appendChild(status);
-
-  right.appendChild(form);
-
-  grid.appendChild(left);
-  grid.appendChild(right);
-  return grid;
+  wrapper.appendChild(left);
+  wrapper.appendChild(right);
+  wrapper.appendChild(actions);
+  return wrapper;
 }
 
 function buildReleaseModalBody(release) {
-  const grid = el("div", { className: "grid g2" });
+  const wrapper = el("div", { className: "event-modal-wrap" });
 
-  const left = el("div", { className: "card" });
-  left.appendChild(createMedia("smile.png", "", "media square"));
-  const leftPad = el("div", { className: "pad" });
-  leftPad.appendChild(el("b", { text: "Треклист" }));
-  appendDivider(leftPad);
+  const left = el("div", { className: "card event-modal-left" });
+  left.appendChild(createMedia("smile.png", "", "media"));
+
+  const right = el("div", { className: "card pad event-modal-right" });
+  right.appendChild(el("b", { text: "Треклист" }));
+  appendDivider(right);
 
   const tracklist = el("div", { className: "muted" });
   (release.tracklist || []).forEach((track, idx) => {
     if (idx > 0) tracklist.appendChild(document.createElement("br"));
     tracklist.appendChild(document.createTextNode(`• ${track}`));
   });
-  leftPad.appendChild(tracklist);
+  right.appendChild(tracklist);
 
-  left.appendChild(leftPad);
+  const actions = el("div", { className: "event-modal-actions" });
+  actions.style.gap = "10px";
 
-  const right = el("div", { className: "card pad" });
-  right.appendChild(el("b", { text: "Ссылки" }));
-  appendDivider(right);
-
-  const links = el("div", { className: "row" });
-  const bandcamp = el("button", { className: "btn", text: "Bandcamp" });
+  const bandcamp = el("button", { className: "btn event-ticket-btn", text: "Bandcamp" });
   bandcamp.type = "button";
   bandcamp.addEventListener("click", () => alert("Bandcamp (поставишь ссылку)"));
-  links.appendChild(bandcamp);
+  actions.appendChild(bandcamp);
 
-  const soundcloud = el("button", { className: "btn", text: "SoundCloud" });
+  const soundcloud = el("button", { className: "btn event-ticket-btn", text: "SoundCloud" });
   soundcloud.type = "button";
   soundcloud.addEventListener("click", () => alert("SoundCloud (поставишь ссылку)"));
-  links.appendChild(soundcloud);
+  actions.appendChild(soundcloud);
 
-  right.appendChild(links);
-  appendDivider(right);
-  right.appendChild(el("div", { className: "muted", text: "Кредиты: мастеринг / арт / лейбл (тест)." }));
-
-  grid.appendChild(left);
-  grid.appendChild(right);
-  return grid;
+  wrapper.appendChild(left);
+  wrapper.appendChild(right);
+  wrapper.appendChild(actions);
+  return wrapper;
 }
 
 function buildStreamModalBody(stream) {
@@ -721,7 +650,7 @@ document.addEventListener("click", (e) => {
     if (!artist) return;
     openModal({
       title: artist.name,
-      sub: `${artist.role} · ${artist.bookable ? "доступен для букинга" : "не на букинге"}`,
+      sub: "Тестовое описание",
       body: buildArtistModalBody(artist)
     });
     return;
@@ -895,19 +824,8 @@ document.addEventListener("submit", async (e) => {
 const navLinks = $$(".nav a");
 const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
 
-const io = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        navLinks.forEach((link) => {
-          link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
-        });
-      }
-    });
-  },
-  { rootMargin: "-50% 0px -45% 0px", threshold: 0.01 }
-);
-sections.forEach((section) => io.observe(section));
+// IntersectionObserver used to add 'active' class to nav links. 
+// Removed as per user request to only highlight on hover.
 
 const mobileMenuToggle = $("#mobileMenuToggle");
 const mobileMenu = $("#mobileMenu");
@@ -964,11 +882,26 @@ document.addEventListener("click", (e) => {
 
 $("#artistSearch")?.addEventListener("input", () => renderArtists());
 
-const yearNode = $("#year");
-if (yearNode) yearNode.textContent = new Date().getFullYear();
-renderEvents();
-renderArtists();
-renderReleases();
-renderStreams();
-renderMerch();
-initClubAuth();
+const initApp = async () => {
+  if (window.dbLayer) {
+    await window.dbLayer.syncDefaultData();
+    data.events = await window.dbLayer.getEvents();
+    data.artists = await window.dbLayer.getArtists();
+    data.releases = await window.dbLayer.getReleases();
+    data.podcasts = await window.dbLayer.getPodcasts();
+    data.streams = await window.dbLayer.getStreams();
+    data.merch = await window.dbLayer.getMerch();
+  }
+  
+  const yearNode = $("#year");
+  if (yearNode) yearNode.textContent = new Date().getFullYear();
+  
+  renderEvents();
+  renderArtists();
+  renderReleases();
+  renderStreams();
+  renderMerch();
+  initClubAuth();
+};
+
+document.addEventListener("DOMContentLoaded", initApp);

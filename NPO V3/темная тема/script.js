@@ -6,10 +6,16 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const pad2 = (n) => String(n).padStart(2, "0");
 
+const monthsRu = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 const fmtDT = (iso) => {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "—";
   return `${pad2(d.getDate())}.${pad2(d.getMonth() + 1)}.${d.getFullYear()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+};
+const fmtDateShort = (iso) => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return `${d.getDate()} ${monthsRu[d.getMonth()]}`;
 };
 
 const sortAsc = (arr, key) => [...arr].sort((a, b) => new Date(a[key]) - new Date(b[key]));
@@ -19,8 +25,9 @@ const data = {
     { id: "e1", title: "Maslaynitsa", date: "2026-02-19T22:00:00", place: "НПО Мелодия", tags: ["live", "electronic"], status: "archive", poster: "event-maslaynitsa.jpg", about: "Ивент Maslaynitsa.", lineup: ["am1d", "di-au", "feel gainsbourg", "egor popov", "nyaono"] },
     { id: "e2", title: "Cliche", date: "2026-02-20T22:00:00", place: "НПО Мелодия", tags: ["club", "b2b"], status: "archive", poster: "event-cliche.jpg", about: "Ночной ивент Cliche.", lineup: ["ayokiddy", "fckshizy", "luxxomea", "manyice", "norman b2b void", "whysobored", "yardyard"] },
     { id: "e3", title: "Pirate Jet", date: "2026-02-28T20:00:00", place: "НПО Мелодия", tags: ["live", "concert"], status: "archive", poster: "event-pirate-jet.jpg", about: "Pirate Jet: концерты и live performance.", lineup: ["gummies (concert)", "черные бояре x света ефремова (live performance)", "m1lbeee (concert)", "ucuda (concert)", "фантом м-100 (live)", "valentin fufaev", "dj baby steps", "yze (concert)", "bogdamn"] },
-    { id: "e4", title: "8 Марта — Первый уикенд весны", date: "2026-03-08T21:30:00", place: "НПО Мелодия", tags: ["weekend", "live", "32h"], status: "tickets", poster: "event-8-marta.jpg", ticketUrl: "https://moscow.qtickets.events/219423-78", about: "Первый уикенд весны — 32 часа. День 1. Двери: 21:30.", lineup: ["Line-up скоро"] },
-    { id: "e5", title: "9 Марта — Первый уикенд весны (день 2)", date: "2026-03-09T17:00:00", place: "НПО Мелодия", tags: ["weekend", "8march"], status: "tickets", poster: "event-8-marta.jpg", ticketUrl: "https://moscow.qtickets.events/219423-78", about: "Продолжение уикенда весны. День 2. Полный анонс по лайнапу — скоро.", lineup: ["Line-up скоро"] }
+    { id: "e4", title: "7+8", date: "2026-03-07T21:00:00", place: "НПО Мелодия", address: "Москва, 3-я улица Ямского Поля, 2 к5", tags: ["weekend", "live", "32h"], status: "tickets", poster: "event-7-marta.png", ticketUrl: "https://moscow.qtickets.events/219423-78", about: "Первый викенд весны — 32 часа. Концерты Макса Беженова и BOORLUCK: GALLEON-25. Abelle, Utah, RHa & Roma Ptashenko, Сaspian Kid, Wei. Утренние: Denis Kostitsyn & Rvbbt & Ballu, Sereja Borisov. Перфоманс: Таи & Tomashino (Лаборатория Речи), Mishinuki Waterwitch & Soundxo, Лиза Голицына, Муся Кроткова. В ночи: Сurrent Сall, Marina Bibik, Mari Ka, Nastya Tkacheva. Билет не является гарантией входа, на мероприятии действует face control.", lineup: ["Макс Беженов", "BOORLUCK: GALLEON-25", "Abelle", "Utah", "RHa & Roma Ptashenko", "Сaspian Kid", "Wei", "Denis Kostitsyn & Rvbbt & Ballu", "Sereja Borisov", "Таи & Tomashino", "Mishinuki Waterwitch & Soundxo", "Лиза Голицына", "Муся Кроткова", "Сurrent Сall", "Marina Bibik", "Mari Ka", "Nastya Tkacheva"] },
+    { id: "e5", title: "7+8 (день 2)", date: "2026-03-09T17:00:00", place: "НПО Мелодия", address: "Москва, 3-я улица Ямского Поля, 2 к5", tags: ["weekend", "8march"], status: "tickets", poster: "event-8-marta.jpg", ticketUrl: "https://moscow.qtickets.events/219423-78", about: "Продолжение 7+8. Восьмое марта — полный вайб. Единый билет на оба дня.", lineup: [] },
+    { id: "e6", title: "exponere", date: "2026-03-13T20:00:00", place: "НПО Мелодия", address: "Москва, 3-я улица Ямского Поля, 2 к5", tags: ["live", "tape"], status: "tickets", poster: "event-exponere.png", ticketUrl: "https://moscow.qtickets.events/220843-exponere", about: "Март 13 w/ Exponere. Презентация кассеты Varia Pars Prima. Лайвы: Walter Shandy, Ivan Yerofeyev (ГОСТ ЗВУК, Resonance), Paita (DJ HeadSick, Yuzhnii Chelovek), Naked Drums. Диджей-сеты: Sablemik b2b OL, Oid b2b Sapurra, Wei b2b Beennooutside. Открытие: DJ Reelswatcher. Прайм: Skunk York. Утренние: Andrey Ramonov и RHa. Билет не является гарантией входа, на мероприятии действует FC.", lineup: ["DJ Reelswatcher", "Naūma (live)", "Ivan Yerofeyev (live)", "Sablemik x OL", "Wei x Beennooutside", "Walter Shandy (live)", "Skunk York", "Oid x Sapurra", "Naked Drums (live)", "Andrey Ramonov", "RHa"] }
   ],
   artists: [
     { id: "a2", name: "AND", role: "Live act", bookable: true, tags: ["live", "hardware"], bio: "Живой сет с железом." },
@@ -60,7 +67,6 @@ const CLUB_TOKEN_KEY = "npo_club_token_v1";
 const CLUB_API_BASE = window.location.protocol === "file:" ? "http://localhost:8000" : "";
 const ARTISTS_VISIBLE = 6;
 
-let showUpcoming = false;
 
 const el = (tag, { className, text } = {}) => {
   const node = document.createElement(tag);
@@ -319,43 +325,18 @@ function renderEvents() {
   if (!wrap) return;
   wrap.replaceChildren();
 
-  const now = new Date();
-  let list = sortAsc(data.events, "date");
-
-  if (showUpcoming) {
-    list = list.filter((e) => new Date(e.date) >= now);
-  } else {
-    const upcoming = list.filter((e) => new Date(e.date) >= now);
-    const past = list.filter((e) => new Date(e.date) < now).reverse();
-    list = [...upcoming, ...past];
-  }
+  const list = [...data.events].reverse();
 
   list.forEach((eventItem) => {
-    const card = el("div", { className: "card" });
-    card.appendChild(createMedia(eventItem.poster || "smile.png", eventItem.title, "media event-media"));
+    const card = el("div", { className: "card event-card" });
+    card.appendChild(createMedia(eventItem.poster || "smile.png", eventItem.title, "media event-media event-poster"));
 
     const pad = el("div", { className: "pad" });
-    pad.appendChild(el("div", { className: "muted event-card-date", text: fmtDT(eventItem.date) }));
     pad.appendChild(el("b", { className: "event-card-title", text: eventItem.title }));
 
     card.appendChild(pad);
     setupOpenCard(card, "event", eventItem.id);
     wrap.appendChild(card);
-  });
-
-  const next = sortAsc(data.events, "date").filter((e) => new Date(e.date) >= now)[0];
-  const nextEventPill = $("#nextEventPill");
-  if (nextEventPill) {
-    nextEventPill.textContent = next ? `Следующий ивент: ${next.title} · ${fmtDT(next.date)}` : "Следующий ивент: —";
-  }
-}
-
-const toggleUpcomingBtn = $("#toggleUpcoming");
-if (toggleUpcomingBtn) {
-  toggleUpcomingBtn.addEventListener("click", () => {
-    showUpcoming = !showUpcoming;
-    toggleUpcomingBtn.textContent = `Показать: ${showUpcoming ? "ближайшие" : "все"}`;
-    renderEvents();
   });
 }
 
@@ -404,17 +385,14 @@ function renderReleases() {
     card.appendChild(createMedia("smile.png", "", "media square"));
 
     const pad = el("div", { className: "pad" });
-    const row = el("div", { className: "row sp" });
 
     const title = el("b", { text: release.title });
-    title.style.maxWidth = "70%";
+    title.style.maxWidth = "100%";
     title.style.overflow = "hidden";
     title.style.textOverflow = "ellipsis";
     title.style.whiteSpace = "nowrap";
 
-    row.appendChild(title);
-    row.appendChild(createTag(release.format));
-    pad.appendChild(row);
+    pad.appendChild(title);
 
     const date = el("div", { className: "muted", text: release.date });
     date.style.marginTop = "6px";
@@ -501,58 +479,54 @@ const closeModal = () => {
 const appendDivider = (parent) => parent.appendChild(el("div", { className: "divider" }));
 
 function buildEventModalBody(eventItem) {
-  const grid = el("div", { className: "grid g2" });
+  const wrapper = el("div", { className: "event-modal-wrap" });
 
-  const left = el("div", { className: "card" });
+  const left = el("div", { className: "card event-modal-left" });
   left.appendChild(createMedia(eventItem.poster || "smile.png", eventItem.title, "media"));
-  const leftPad = el("div", { className: "pad" });
 
-  const tagsRow = el("div", { className: "row" });
-  (eventItem.tags || []).forEach((tag) => tagsRow.appendChild(createTag(tag)));
-  leftPad.appendChild(tagsRow);
-  appendDivider(leftPad);
-  leftPad.appendChild(el("b", { text: "Описание" }));
+  const right = el("div", { className: "card pad event-modal-right" });
+  right.appendChild(el("b", { text: "Описание" }));
   const about = el("div", { className: "muted", text: eventItem.about || "—" });
   about.style.marginTop = "8px";
-  leftPad.appendChild(about);
+  right.appendChild(about);
 
-  left.appendChild(leftPad);
-
-  const right = el("div", { className: "card pad" });
-  right.appendChild(el("b", { text: "Лайнап" }));
   appendDivider(right);
-
+  right.appendChild(el("b", { text: "Лайнап" }));
   const lineup = el("div", { className: "muted" });
+  lineup.style.marginTop = "8px";
   (eventItem.lineup || []).forEach((name, idx) => {
     if (idx > 0) lineup.appendChild(document.createElement("br"));
     lineup.appendChild(document.createTextNode(name));
   });
   right.appendChild(lineup);
 
-  appendDivider(right);
-
-  const actionRow = el("div", { className: "row sp" });
-  actionRow.appendChild(createTag(eventItem.status || "—"));
+  if (eventItem.address) {
+    appendDivider(right);
+    const addrRow = el("div", { className: "row" });
+    addrRow.appendChild(el("span", { className: "tag", text: "Адрес" }));
+    addrRow.appendChild(el("span", { className: "muted", text: eventItem.address }));
+    right.appendChild(addrRow);
+  }
 
   const ticketUrl = safeHttpUrl(eventItem.ticketUrl);
+  const actions = el("div", { className: "event-modal-actions" });
   if (ticketUrl) {
-    const link = el("a", { className: "btn primary", text: "Билеты / регистрация" });
+    const link = el("a", { className: "btn primary event-ticket-btn", text: "Билеты / регистрация" });
     link.href = ticketUrl;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    actionRow.appendChild(link);
+    actions.appendChild(link);
   } else {
-    const button = el("button", { className: "btn primary", text: "Билеты / регистрация" });
+    const button = el("button", { className: "btn primary event-ticket-btn", text: "Билеты / регистрация" });
     button.type = "button";
     button.addEventListener("click", () => alert("Тут будет ссылка на билеты/регистрацию"));
-    actionRow.appendChild(button);
+    actions.appendChild(button);
   }
 
-  right.appendChild(actionRow);
-
-  grid.appendChild(left);
-  grid.appendChild(right);
-  return grid;
+  wrapper.appendChild(left);
+  wrapper.appendChild(right);
+  wrapper.appendChild(actions);
+  return wrapper;
 }
 
 function buildArtistModalBody(artist) {

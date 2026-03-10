@@ -1,8 +1,16 @@
-# НПО Мелодия — сайт
+# НПО Мелодия
 
-Две версии (одинаковая логика, разная тема):
+Статический сайт (HTML/CSS/JS).
 
-- **`dark version/`** — тёмная тема. Открывать `dark version/index.html`.
-- **`light version/`** — светлая тема. Открывать `light version/index.html`.
+## Backend (регистрация и эксклюзив)
 
-В каждой папке: `index.html`, `script.js`, `styles.css` и ассеты (изображения, шрифт).
+Для раздела `Клуб` добавлен локальный backend на Python (`backend/server.py`).
+
+Запуск:
+
+```bash
+cd backend
+python3 server.py
+```
+
+После запуска открой `http://127.0.0.1:8000`.
