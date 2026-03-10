@@ -11,6 +11,8 @@ create table if not exists public.releases (
   format text not null, -- digital, vinyl, cassette
   tracklist text[] default '{}',
   poster text,
+  bandcamp_url text,
+  soundcloud_url text,
   created_at timestamp with time zone default now()
 );
 

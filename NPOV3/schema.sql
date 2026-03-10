@@ -33,6 +33,9 @@ create table if not exists public.artists (
     tags text[] default array[]::text[],
     bio text,
     poster text default 'smile.png',
+    bandcamp_url text,
+    soundcloud_url text,
+    sort_order integer default 100,
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 

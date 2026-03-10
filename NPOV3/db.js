@@ -69,12 +69,13 @@ export const checkIsAdmin = async () => {
 
 // --- API Событий (Events) ---
 
-export const getEvents = async () => {
+export const getEvents = async (from = 0, to = 19) => {
   // сортируем по дате убывания как было раньше
   const { data, error } = await supabaseClt
     .from('events')
     .select('*')
-    .order('date', { ascending: false });
+    .order('date', { ascending: false })
+    .range(from, to);
     
   if (error) {
     console.error('Error fetching events:', error);
@@ -118,11 +119,19 @@ export const deleteEvent = async (id) => {
 
 // --- API Артистов (Artists) ---
 
-export const getArtists = async () => {
-  const { data, error } = await supabaseClt
+export const getArtists = async (query = '', from = 0, to = 19) => {
+  let req = supabaseClt
     .from('artists')
     .select('*')
-    .order('name', { ascending: true });
+    .order('sort_order', { ascending: true })
+    .order('name', { ascending: true })
+    .range(from, to);
+
+  if (query) {
+    req = req.or(`name.ilike.%${query}%,role.ilike.%${query}%`);
+  }
+
+  const { data, error } = await req;
     
   if (error) {
     console.error('Error fetching artists:', error);
@@ -193,11 +202,12 @@ export const updateUserRole = async (id, newRole) => {
 
 // --- API Релизов (Releases) ---
 
-export const getReleases = async () => {
+export const getReleases = async (from = 0, to = 19) => {
   const { data, error } = await supabaseClt
     .from('releases')
     .select('*')
-    .order('date', { ascending: false });
+    .order('date', { ascending: false })
+    .range(from, to);
 
   if (error) {
     console.error('Error fetching releases:', error);
@@ -241,11 +251,12 @@ export const deleteRelease = async (id) => {
 
 // --- API Подкастов (Podcasts) ---
 
-export const getPodcasts = async () => {
+export const getPodcasts = async (from = 0, to = 19) => {
   const { data, error } = await supabaseClt
     .from('podcasts')
     .select('*')
-    .order('date', { ascending: false });
+    .order('date', { ascending: false })
+    .range(from, to);
 
   if (error) {
     console.error('Error fetching podcasts:', error);
@@ -289,11 +300,12 @@ export const deletePodcast = async (id) => {
 
 // --- API Стримов (Streams) ---
 
-export const getStreams = async () => {
+export const getStreams = async (from = 0, to = 19) => {
   const { data, error } = await supabaseClt
     .from('streams')
     .select('*')
-    .order('date', { ascending: false });
+    .order('date', { ascending: false })
+    .range(from, to);
 
   if (error) {
     console.error('Error fetching streams:', error);
@@ -337,11 +349,12 @@ export const deleteStream = async (id) => {
 
 // --- API Мерча (Merch) ---
 
-export const getMerch = async () => {
+export const getMerch = async (from = 0, to = 19) => {
   const { data, error } = await supabaseClt
     .from('merch')
     .select('*')
-    .order('title', { ascending: true });
+    .order('title', { ascending: true })
+    .range(from, to);
 
   if (error) {
     console.error('Error fetching merch:', error);
