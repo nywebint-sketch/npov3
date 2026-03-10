@@ -74,7 +74,7 @@ export const getEvents = async () => {
   const { data, error } = await supabaseClt
     .from('events')
     .select('*')
-    .order('date', { ascending: false });
+    .order('date', { ascending: true });
 
   if (error) {
     console.error('Error fetching events:', error);
