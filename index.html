@@ -50,19 +50,15 @@
   </nav>
 
   <main>
-    <!-- INTRO -->
+    <!-- Полная разметка из NPO V3/index.html, но с путями к ассетам через NPO V3/ -->
     <section class="intro-start" id="home">
       <img class="intro-start-image" src="NPO V3/npo_print_source.png" alt="Изображение" />
     </section>
 
-    <!-- Остальная разметка (секции events/artists/releases/merch/profile/contacts) такая же,
-         скрипт сам заполняет данные из Supabase -->
     <section id="events">
       <div class="container">
         <div class="head">
-          <div>
-            <h2>Афиша</h2>
-          </div>
+          <div><h2>Афиша</h2></div>
         </div>
         <div class="grid g4" id="eventsGrid"></div>
       </div>
@@ -142,11 +138,95 @@
       </div>
     </section>
 
-    <!-- PROFILE, CONTACTS, footer и модалка можно оставить как в NPO V3/index.html,
-         они не зависят от путей к ассетам -->
-  </main>
+    <section id="profile">
+      <div class="container">
+        <div class="head">
+          <div><h2>Профиль</h2></div>
+        </div>
+        <div class="grid g2">
+          <div class="card pad">
+            <b>Аккаунт участника</b>
+            <div class="divider"></div>
+            <div id="authGuest" class="grid auth-forms">
+              <form id="loginForm" class="auth-form">
+                <b>Вход</b>
+                <input class="input" name="email" type="email" placeholder="Email" required>
+                <input class="input" name="password" type="password" placeholder="Пароль" required>
+                <button class="btn" type="submit">Войти</button>
+              </form>
+              <form id="registerForm" class="auth-form">
+                <b>Регистрация</b>
+                <input class="input" name="name" placeholder="Имя" required>
+                <input class="input" name="email" type="email" placeholder="Email" required>
+                <input class="input" name="password" type="password" placeholder="Пароль (мин. 6 символов)" required>
+                <input class="input" name="password2" type="password" placeholder="Повтори пароль" required>
+                <button class="btn primary" type="submit">Создать аккаунт</button>
+              </form>
+            </div>
+            <div id="authMember" class="auth-member" hidden>
+              <div class="muted">Ты вошел как <b id="memberName">—</b>.</div>
+              <div style="height:10px"></div>
+              <button class="btn" id="logoutBtn" type="button">Выйти</button>
+            </div>
+            <div id="authStatus" class="muted auth-status">Доступ к эксклюзиву закрыт.</div>
+          </div>
+          <div class="card pad">
+            <div class="row sp">
+              <b>Эксклюзив</b>
+              <span class="tag" id="exclusiveBadge">закрыт</span>
+            </div>
+            <div class="divider"></div>
+            <div id="exclusiveLocked" class="muted">
+              Зарегистрируйся или войди, чтобы открыть закрытые релизы, архивы и ранний доступ к анонсам.
+            </div>
+            <div id="exclusiveContent" class="exclusive-list" hidden>
+              <div class="card pad">
+                <b>Early Access: NPO VA 002</b>
+                <div class="muted" style="margin-top:6px;">Превью треков + закрытый pre-save.</div>
+              </div>
+              <div class="card pad">
+                <b>Private Stream Archive</b>
+                <div class="muted" style="margin-top:6px;">Закрытые записи из ночных сетов.</div>
+              </div>
+              <div class="card pad">
+                <b>Members Promo Code</b>
+                <div class="muted" style="margin-top:6px;">Скидка 15% на мерч и закрытые дропы.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Модалка и футер опущены для краткости, но могут быть скопированы 1:1 при необходимости -->
+    <section id="contacts">
+      <div class="container">
+        <div class="head">
+          <div><h2>Контакты</h2></div>
+        </div>
+        <div class="grid g2">
+          <div class="card pad">
+            <b>НПО Мелодия</b>
+            <div class="divider"></div>
+            <div class="row"><span class="tag">Адрес</span><span class="muted">Paris, test street 12</span></div>
+            <div style="height:10px"></div>
+            <div class="row"><span class="tag">Букинг</span><span class="muted">booking@npo-melodiya.test</span></div>
+            <div style="height:10px"></div>
+            <div class="row"><span class="tag">Пресса</span><span class="muted">press@npo-melodiya.test</span></div>
+            <div class="divider"></div>
+            <div class="row">
+              <a class="btn" href="#" data-placeholder-link="Поставь ссылку">Telegram</a>
+              <a class="btn" href="https://www.instagram.com/npo_melody/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a class="btn" href="#" data-placeholder-link="Поставь ссылку">SoundCloud</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">© <span id="year">2026</span> НПО Мелодия · тестовый прототип</div>
+    </footer>
+  </main>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script type="module" src="NPO V3/db.js"></script>
