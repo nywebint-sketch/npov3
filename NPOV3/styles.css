@@ -688,6 +688,20 @@
       max-width:100%;
       vertical-align:top;
     }
+    .intro-start-image{
+      width:70%;
+      height:auto;
+      display:block;
+      margin:40px auto;
+      max-width:800px;
+      mix-blend-mode:difference;
+      animation: slow-spin 30s linear infinite;
+    }
+    
+    @keyframes slow-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
     .auth-forms{
       gap:10px;
