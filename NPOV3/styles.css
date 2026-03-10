@@ -153,25 +153,21 @@
     .brand-mark {
       width: 48px;
       height: 48px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      border-radius: 13px;
+      border: none;
       background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px;
+      padding: 7px;
       overflow: hidden;
-      cursor: pointer;
-      user-select: none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition: background .25s ease, color .25s ease;
     }
 
     .brand-mark:hover,
     .brand-mark:active {
-      transform: translateY(-1px);
       background: var(--surface-hover);
       color: var(--text-hover);
-      border-color: var(--border-hover);
     }
 
     .brand-mark img {
@@ -1335,6 +1331,14 @@
         width: 38px;
         height: 38px;
         padding: 0;
+        border: 1px solid var(--stroke);
+        border-radius: 13px;
+        background: transparent;
+        overflow: hidden;
+      }
+
+      .brand .brand-mark img {
+        object-fit: cover;
       }
 
       .right {
@@ -1810,14 +1814,6 @@
       body::before {
         filter: grayscale(1) invert(1) contrast(3.4) brightness(1.5);
         opacity: .2;
-      }
-      
-      .brand-mark img {
-        filter: invert(1);
-      }
-      .brand-mark:hover img,
-      .brand-mark:active img {
-        filter: invert(0);
       }
 
       .intro-start {
