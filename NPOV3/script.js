@@ -1,6 +1,6 @@
 // IMPORTANT:
 // 1) Сохрани твою картинку рядом с index.html
-// 2) Назови файл https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png (или поменяй все src="https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png" на свое имя)
+// 2) Назови файл smile.png (или поменяй все src="smile.png" на свое имя)
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -298,15 +298,26 @@ function setupOpenCard(node, type, id) {
 function createMedia(imgSrc, imgAlt, className = "media") {
   const media = el("div", { className });
   const img = document.createElement("img");
+  
+  const defaultLogo = "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png";
   let src = imgSrc;
-  // если пришёл относительный путь (имя файла), добавляем префикс
-  if (!src) {
-    src = "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png";
+  
+  // Если пути нет, или база вернула старое значение 'logo.png'
+  if (!src || src === "logo.png") {
+    src = defaultLogo;
   } else if (!/^https?:\/\//i.test(src)) {
     src = ASSET_PREFIX + src;
   }
+  
   img.src = src;
   img.alt = imgAlt || "";
+  
+  // МАГИЯ ЗДЕСЬ: Если картинка (например wei.jpg) вернула 404, ставим заглушку
+  img.onerror = function() {
+    this.onerror = null; // Защита от бесконечного цикла
+    this.src = defaultLogo;
+  };
+
   media.appendChild(img);
   return media;
 }
@@ -320,7 +331,7 @@ function renderEvents() {
 
   list.forEach((eventItem) => {
     const card = el("div", { className: "card event-card" });
-    card.appendChild(createMedia(eventItem.poster || "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", eventItem.title, "media event-media event-poster"));
+    card.appendChild(createMedia(eventItem.poster || "smile.png", eventItem.title, "media event-media event-poster"));
 
     const pad = el("div", { className: "pad" });
     pad.appendChild(el("b", { className: "event-card-title", text: eventItem.title }));
@@ -355,7 +366,7 @@ function renderArtists() {
   const toShow = q ? list : list.slice(0, ARTISTS_VISIBLE);
   toShow.forEach((artist) => {
     const card = el("div", { className: "card artist-card" });
-    card.appendChild(createMedia(artist.poster || "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", artist.name, "media square"));
+    card.appendChild(createMedia(artist.poster || "smile.png", artist.name, "media square"));
 
     const pad = el("div", { className: "pad artist-card-body" });
     pad.appendChild(el("b", { className: "artist-card-name", text: artist.name }));
@@ -373,7 +384,7 @@ function renderReleases() {
 
   [...data.releases].sort((a, b) => b.date.localeCompare(a.date)).forEach((release) => {
     const card = el("div", { className: "card" });
-    card.appendChild(createMedia("https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", "", "media square"));
+    card.appendChild(createMedia("smile.png", "", "media square"));
 
     const pad = el("div", { className: "pad" });
 
@@ -433,7 +444,7 @@ function renderMerch() {
 
   data.merch.forEach((item) => {
     const card = el("div", { className: "card" });
-    card.appendChild(createMedia("https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", "", "media square"));
+    card.appendChild(createMedia("smile.png", "", "media square"));
 
     const pad = el("div", { className: "pad" });
     const row = el("div", { className: "row sp" });
@@ -473,7 +484,7 @@ function buildEventModalBody(eventItem) {
   const wrapper = el("div", { className: "event-modal-wrap" });
 
   const left = el("div", { className: "card event-modal-left" });
-  left.appendChild(createMedia(eventItem.poster || "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", eventItem.title, "media"));
+  left.appendChild(createMedia(eventItem.poster || "smile.png", eventItem.title, "media"));
 
   const right = el("div", { className: "card pad event-modal-right" });
   right.appendChild(el("b", { text: "Описание" }));
@@ -525,7 +536,7 @@ function buildArtistModalBody(artist) {
 
   const left = el("div", { className: "card event-modal-left" });
   const mediaClass = artist.poster ? "media square cover" : "media square";
-  left.appendChild(createMedia(artist.poster || "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", artist.name, mediaClass));
+  left.appendChild(createMedia(artist.poster || "smile.png", artist.name, mediaClass));
 
   const right = el("div", { className: "card pad event-modal-right" });
 
@@ -555,7 +566,7 @@ function buildReleaseModalBody(release) {
   const wrapper = el("div", { className: "event-modal-wrap" });
 
   const left = el("div", { className: "card event-modal-left" });
-  left.appendChild(createMedia("https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", "", "media"));
+  left.appendChild(createMedia("smile.png", "", "media"));
 
   const right = el("div", { className: "card pad event-modal-right" });
   right.appendChild(el("b", { text: "Треклист" }));
@@ -591,7 +602,7 @@ function buildStreamModalBody(stream) {
   const card = el("div", { className: "card pad" });
   card.appendChild(el("b", { text: "Воспроизведение" }));
   appendDivider(card);
-  card.appendChild(createMedia("https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", "", "media wide"));
+  card.appendChild(createMedia("smile.png", "", "media wide"));
 
   const hint = el("div", { className: "muted", text: "Тут будет YouTube/Vimeo embed." });
   hint.style.marginTop = "10px";
@@ -603,7 +614,7 @@ function buildMerchModalBody(item) {
   const grid = el("div", { className: "grid g2" });
 
   const left = el("div", { className: "card" });
-  left.appendChild(createMedia("https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", "", "media square"));
+  left.appendChild(createMedia("smile.png", "", "media square"));
   const leftPad = el("div", { className: "pad" });
   leftPad.appendChild(el("b", { text: "Описание" }));
   appendDivider(leftPad);
@@ -684,7 +695,7 @@ document.addEventListener("click", (e) => {
     const left = el("div", { className: "card pad" });
     left.appendChild(el("b", { text: "Плеер" }));
     appendDivider(left);
-    left.appendChild(createMedia("https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png", "", "media wide"));
+    left.appendChild(createMedia("smile.png", "", "media wide"));
     const embedHint = el("div", { className: "muted", text: "Здесь будет SoundCloud embed." });
     embedHint.style.marginTop = "10px";
     left.appendChild(embedHint);
