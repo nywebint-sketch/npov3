@@ -287,7 +287,7 @@ async function openEventEditor(id = null) {
 
     const fd = new FormData(e.target);
     const file = fd.get('posterFile');
-    let posterUrl = event.poster || 'logo.png';
+    let posterUrl = event.poster || 'https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png';
 
     if (file && file.size > 0) {
       try {
@@ -419,7 +419,7 @@ async function openArtistEditor(id = null) {
 
     const fd = new FormData(e.target);
     const file = fd.get('posterFile');
-    let posterUrl = artist.poster || 'logo.png';
+    let posterUrl = artist.poster || 'https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png';
 
     if (file && file.size > 0) {
       try {
