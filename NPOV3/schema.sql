@@ -15,7 +15,7 @@ create table if not exists public.events (
     address text,
     tags text[] default array[]::text[],
     status text default 'tickets',
-    poster text default 'smile.png',
+    poster text default 'logo.png',
     ticket_url text,
     about text,
     lineup text[] default array[]::text[],
@@ -32,7 +32,7 @@ create table if not exists public.artists (
     bookable boolean default true,
     tags text[] default array[]::text[],
     bio text,
-    poster text default 'smile.png',
+    poster text default 'logo.png',
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
