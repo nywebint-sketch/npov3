@@ -298,15 +298,26 @@ function setupOpenCard(node, type, id) {
 function createMedia(imgSrc, imgAlt, className = "media") {
   const media = el("div", { className });
   const img = document.createElement("img");
+  
+  const defaultLogo = "https://rvswpgsxutfcpgvmzonr.supabase.co/storage/v1/object/public/images/logo.png";
   let src = imgSrc;
-  // если пришёл относительный путь (имя файла), добавляем префикс
-  if (!src) {
-    src = ASSET_PREFIX + "smile.png";
+  
+  // Если пути нет, или база вернула старое значение 'logo.png'
+  if (!src || src === "logo.png") {
+    src = defaultLogo;
   } else if (!/^https?:\/\//i.test(src)) {
     src = ASSET_PREFIX + src;
   }
+  
   img.src = src;
   img.alt = imgAlt || "";
+  
+  // МАГИЯ ЗДЕСЬ: Если картинка (например wei.jpg) вернула 404, ставим заглушку
+  img.onerror = function() {
+    this.onerror = null; // Защита от бесконечного цикла
+    this.src = defaultLogo;
+  };
+
   media.appendChild(img);
   return media;
 }
